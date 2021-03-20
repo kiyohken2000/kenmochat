@@ -21,6 +21,7 @@
     "expo-asset": "~8.2.1",
     "expo-cli": "^3.20.0",
     "expo-font": "~8.4.0",
+    "firebase": "8.2.7",
     "global": "^4.4.0",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
