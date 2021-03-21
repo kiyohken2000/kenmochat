@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import Button from 'components/Button'
 import { colors } from 'theme'
+import { firebase } from '../../firebase/config'
 
 const styles = StyleSheet.create({
   root: {
@@ -30,6 +31,16 @@ const Profile = ({ navigation }) => (
       backgroundColor={colors.lightPurple}
       onPress={() => {
         navigation.navigate('Details', { from: 'Profile' })
+      }}
+    />
+    <Text>sign out</Text>
+    <Button
+      title="sign out"
+      color="white"
+      backgroundColor={colors.lightPurple}
+      onPress={() => {
+        firebase.auth().signOut()
+        navigation.navigate('Login')
       }}
     />
   </View>

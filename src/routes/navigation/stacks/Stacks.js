@@ -4,8 +4,8 @@ import { colors } from 'theme'
 import Home from 'scenes/home'
 import Profile from 'scenes/profile'
 import Details from 'scenes/details'
-import HeaderLeft from './HeaderLeft'
-import HeaderTitle from './HeaderTitle'
+import Login from '../../../scenes/login'
+import Registration from '../../../scenes/registration'
 
 // ------------------------------------
 // Constants
@@ -23,6 +23,24 @@ const navigationProps = {
 // Navigators
 // ------------------------------------
 
+export const LoginNavigator = () => (
+  <Stack.Navigator
+    initialRouteName="Login"
+    headerMode="screen"
+    screenOptions={navigationProps}
+  >
+    <Stack.Screen
+      name="Login"
+      component={Login}
+    />
+    <Stack.Screen
+      name="Registration"
+      component={Registration}
+    />
+    <Stack.Screen name="Home" component={HomeNavigator} options={{ title: '', headerTransparent: true }}/>
+  </Stack.Navigator>
+)
+
 export const HomeNavigator = () => (
   <Stack.Navigator
     initialRouteName="Home"
@@ -32,20 +50,10 @@ export const HomeNavigator = () => (
     <Stack.Screen
       name="Home"
       component={Home}
-      options={({ navigation }) => ({
-        title: 'Home',
-        headerLeft: () => <HeaderLeft navigation={navigation} />,
-        headerTitle: () => <HeaderTitle />,
-      })}
     />
     <Stack.Screen
       name="Details"
       component={Details}
-      options={({ navigation }) => ({
-        title: 'Home',
-        headerLeft: () => <HeaderLeft navigation={navigation} />,
-        headerTitle: () => <HeaderTitle />,
-      })}
     />
   </Stack.Navigator>
 )
@@ -59,18 +67,10 @@ export const ProfileNavigator = () => (
     <Stack.Screen
       name="Profile"
       component={Profile}
-      options={({ navigation }) => ({
-        title: 'Profile',
-        headerLeft: () => <HeaderLeft navigation={navigation} />,
-        headerTitle: () => <HeaderTitle />,
-      })}
     />
     <Stack.Screen
       name="Details"
       component={Details}
-      options={{
-        title: 'Details',
-      }}
     />
   </Stack.Navigator>
 )
