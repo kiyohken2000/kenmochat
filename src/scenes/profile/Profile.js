@@ -1,57 +1,33 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {
-  StyleSheet, Text, View, StatusBar,
-} from 'react-native'
-import Button from 'components/Button'
+import { Text, View, StatusBar } from 'react-native'
+import styles from './styles'
 import { colors } from 'theme'
+import Button from 'components/Button'
 import { firebase } from '../../firebase/config'
+import { Restart } from 'fiction-expo-restart'
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.lightGrayPurple,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-})
+export default function Profile({ route, navigation }) {
+  const userData = route.params.userData
 
-const Profile = ({ navigation }) => (
-  <View style={styles.root}>
-    <StatusBar barStyle="light-content" />
-    <Text style={styles.title}>Profile</Text>
-    <Button
-      title="Go to Details"
-      color="white"
-      backgroundColor={colors.lightPurple}
-      onPress={() => {
-        navigation.navigate('Details', { from: 'Profile' })
-      }}
-    />
-    <Text>sign out</Text>
-    <Button
-      title="sign out"
-      color="white"
-      backgroundColor={colors.lightPurple}
-      onPress={() => {
-        firebase.auth().signOut()
-        navigation.navigate('Login')
-      }}
-    />
-  </View>
-)
+  const signOut = () => {
+    firebase.auth().signOut()
+    Restart()
+  }
 
-Profile.propTypes = {
-  navigation: PropTypes.shape({ navigate: PropTypes.func }),
+  return (
+    <View style={styles.root}>
+      <StatusBar barStyle="light-content" />
+      <Text style={styles.title}>Profile</Text>
+      <Text>ID: {userData.id}</Text>
+      <Text>Mail: {userData.email}</Text>
+      <Text>Name: {userData.fullName}</Text>
+      <Button
+        title="sign out"
+        color="white"
+        backgroundColor={colors.lightPurple}
+        onPress={signOut}
+      />
+    </View>
+  )
+
 }
-
-Profile.defaultProps = {
-  navigation: { navigate: () => null },
-}
-
-export default Profile

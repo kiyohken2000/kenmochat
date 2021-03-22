@@ -7,16 +7,17 @@ import styles from './styles';
 
 export default function Home(props) {
   const userData = props.extraData
-  const signOut = () => {
-    firebase.auth().signOut();
+  const goProfile = () => {
+    // firebase.auth().signOut();
+    props.navigation.navigate('Profile', { userData: userData })
   }
   return (
     <View style={styles.container}>
       <Text>ID: {userData.id}</Text>
       <Text>Mail: {userData.email}</Text>
       <Text>Name: {userData.fullName}</Text>
-      <TouchableOpacity style={styles.button} onPress={signOut}>
-        <Text style={styles.buttonText}>Log out</Text>
+      <TouchableOpacity style={styles.button} onPress={goProfile}>
+        <Text style={styles.buttonText}>Go Profile</Text>
       </TouchableOpacity>
     </View>
   )

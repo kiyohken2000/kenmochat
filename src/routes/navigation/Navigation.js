@@ -4,16 +4,20 @@ import { firebase } from '../../firebase/config'
 import { colors } from 'theme'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import FontIcon from 'react-native-vector-icons/FontAwesome5'
 import Login from '../../scenes/login'
 import Registration from '../../scenes/registration'
 import Home from '../../scenes/home'
+import Profile from '../../scenes/profile'
+import Detail from '../../scenes/details'
 // import DrawerNavigator from './drawer'
-import TabNavigator from './tabs'
 import {decode, encode} from 'base-64'
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
 
 const navigationProps = {
   headerTintColor: 'white',
@@ -52,20 +56,85 @@ export default function App() {
     )
   }
 
+  const HomeNavigator = () => {
+    return (
+      <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+        <Stack.Screen name="Home">
+          {props => <Home {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Profile">
+          {props => <Profile {...props} extraData={user} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    )
+  }
+
+  const DetailNavigator = () => {
+    return (
+      <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+        <Stack.Screen name="Detail">
+          {props => <Detail {...props} extraData={user} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    )
+  }
+
+  const LoginNavigator = () => {
+    return (
+      <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Registration" component={Registration} />
+      </Stack.Navigator>
+    )
+  }
+
+  const TabNavigator = () => (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => {
+          switch (route.name) {
+            case 'Home':
+              return (
+                <FontIcon
+                  name="home"
+                  color={focused ? colors.lightPurple : colors.gray}
+                  size={20}
+                  solid
+                />
+              )
+            case 'Detail':
+              return (
+                <FontIcon
+                  name="user"
+                  color={focused ? colors.lightPurple : colors.gray}
+                  size={20}
+                  solid
+                />
+              )
+            default:
+              return <View />
+          }
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: colors.lightPurple,
+        inactiveTintColor: colors.gray,
+      }}
+      initialRouteName="Home"
+      swipeEnabled={false}
+    >
+      <Tab.Screen name="Home" component={HomeNavigator} />
+      <Tab.Screen name="Detail" component={DetailNavigator} />
+    </Tab.Navigator>
+  )
+
   return(
     <NavigationContainer>
-      <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
-        { user ? (
-          <Stack.Screen name="Home">
-            {props => <Home {...props} extraData={user} />}
-          </Stack.Screen>
+      { user ? (
+        <TabNavigator/>
         ) : (
-          <>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Registration" component={Registration} />
-          </>
-        )}
-      </Stack.Navigator>
+        <LoginNavigator/>
+      )}
     </NavigationContainer>
   )
 }
