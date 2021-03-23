@@ -6,15 +6,21 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  root: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   title: {
     fontSize: 24,
     marginBottom: 20,
+    textAlign: 'center'
+  },
+  field: {
+    fontSize: 15,
+    textAlign: 'center'
+  },
+  logo: {
+    flex: 1,
+    height: 120,
+    width: 120,
+    alignSelf: "center",
+    margin: 30
   },
   input: {
     height: 48,
@@ -44,7 +50,8 @@ export default StyleSheet.create({
   footerView: {
     flex: 1,
     alignItems: "center",
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop: 20
   },
   footerLink: {
     color: "#788eec",
