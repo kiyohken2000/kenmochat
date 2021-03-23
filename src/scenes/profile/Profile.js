@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, TouchableOpacity, Image } from 'react-native'
 import styles from './styles'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { firebase } from '../../firebase/config'
 import { Restart } from 'fiction-expo-restart'
 
