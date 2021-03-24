@@ -23,10 +23,10 @@ export default function Profile(props) {
           style={styles.logo}
           source={{ uri: userData.avatar }}
         />
-        <Text style={styles.field}>Mail:</Text>
-        <Text style={styles.title}>{userData.email}</Text>
         <Text style={styles.field}>Name:</Text>
         <Text style={styles.title}>{userData.fullName}</Text>
+        <Text style={styles.field}>Mail:</Text>
+        <Text style={styles.title}>{userData.email}</Text>
         <TouchableOpacity style={styles.button} onPress={goDetail}>
           <Text style={styles.buttonText}>Go Detail</Text>
         </TouchableOpacity>

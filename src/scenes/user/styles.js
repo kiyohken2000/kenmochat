@@ -22,17 +22,6 @@ export default StyleSheet.create({
     alignSelf: "center",
     margin: 30
   },
-  input: {
-    height: 48,
-    borderRadius: 5,
-    overflow: 'hidden',
-    backgroundColor: 'white',
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 30,
-    marginRight: 30,
-    paddingLeft: 16
-  },
   button: {
     backgroundColor: '#788eec',
     marginLeft: 30,
@@ -41,7 +30,17 @@ export default StyleSheet.create({
     height: 48,
     borderRadius: 5,
     alignItems: "center",
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  block: {
+    backgroundColor: '#cd5c5c',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: 'center',
   },
   buttonText: {
     color: 'white',

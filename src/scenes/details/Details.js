@@ -14,6 +14,8 @@ export default function Detail({ route, navigation }) {
       email: userData.email,
       fullName: fullName,
     }
+    const userRef2 = firebase.firestore().collection('users2').doc(userData.email)
+    userRef2.update(data)
     const userRef = firebase.firestore().collection('users').doc(userData.id)
     userRef.update(data)
   }
@@ -30,8 +32,6 @@ export default function Detail({ route, navigation }) {
               source={{ uri: userData.avatar }}
             />
           </TouchableOpacity>
-          <Text style={styles.field}>Mail:</Text>
-          <Text style={styles.title}>{userData.email}</Text>
           <Text style={styles.field}>Name:</Text>
           <TextInput
             style={styles.input}
@@ -42,6 +42,8 @@ export default function Detail({ route, navigation }) {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
+          <Text style={styles.field}>Mail:</Text>
+          <Text style={styles.title}>{userData.email}</Text>
           <TouchableOpacity style={styles.button} onPress={profileUpdate}>
             <Text style={styles.buttonText}>Update</Text>
           </TouchableOpacity>
