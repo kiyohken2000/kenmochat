@@ -6,7 +6,6 @@ import { firebase } from '../../firebase/config'
 export default function Contact(props) {
   const [email, setEmail] = useState('')
   const [user, setUser] = useState(null)
-  const [users, setUsers] = useState(null)
   const userData = props.extraData
   const contactArray = Object.values(userData.contact?userData.contact:['example@example.com','example@example.com'])
 
@@ -31,19 +30,18 @@ export default function Contact(props) {
   })*/
 
   const addUser = () => {
-    const usersRef2 = firebase.firestore().collection('users2')
-    usersRef2
-    .doc(email)
-    .get()
-    .then((document) => {
-      const userProfile = document.data()
-      setUser(userProfile)
-    })
-    if (user != null) {
-      props.navigation.navigate('User', { user: user, myProfile: userData })
-    } else {
-      alert("The user does not exist")
-    }
+    const usersRef2 = firebase.firestore().collection('users2').doc(email)
+    usersRef2.get().then((doc) => {
+      if (doc.exists) {
+        const userProfile = doc.data()
+        setUser(userProfile)
+        props.navigation.navigate('User', { user: userProfile, myProfile: userData })
+      } else {
+        alert("The user does not exist")
+      }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
   }
 
   return (
