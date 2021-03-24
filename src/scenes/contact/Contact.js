@@ -15,6 +15,12 @@ export default function Contact(props) {
     </View>
   )
 
+  const RenderUser = ({ data, key }) => {
+    <View key={key}>
+      <Text>{data}</Text>
+    </View>
+  }
+
   /*useEffect(() => {
     for (const elem of contactArray) {
       const userRef2 = firebase.firestore().collection('users2')
@@ -65,10 +71,22 @@ export default function Contact(props) {
         (<View style={styles.nonbutton}>
           <Text style={styles.buttonText}>Add</Text>
         </View>)}
-        <FlatList
-          data={contactArray}
-          renderItem={renderItem} 
-        />
+        {
+          contactArray.map((contact, i) => {
+            const usersRef2 = firebase.firestore().collection('users2').doc(contact)
+            usersRef2
+            .get()
+            .then((document) => {
+              const userInfo = document.data()
+              console.log('got this', userInfo)
+            })
+            return (
+              <View key={i}>
+                <Text>{contact}</Text>
+              </View>
+            )
+          })
+        }
       </View>
     </View>
   )
