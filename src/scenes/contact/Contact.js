@@ -9,18 +9,6 @@ export default function Contact(props) {
   const userData = props.extraData
   const contactArray = Object.values(userData.contact?userData.contact:['example@example.com','example@example.com'])
 
-  const renderItem = ({ item }) => (
-    <View>
-      <Text>{item}</Text>
-    </View>
-  )
-
-  const RenderUser = ({ data, key }) => {
-    <View key={key}>
-      <Text>{data}</Text>
-    </View>
-  }
-
   /*useEffect(() => {
     for (const elem of contactArray) {
       const userRef2 = firebase.firestore().collection('users2')
@@ -62,7 +50,6 @@ export default function Contact(props) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-        <Text>{email}</Text>
         {email?(
           <TouchableOpacity style={styles.button} onPress={addUser}>
             <Text style={styles.buttonText}>Add</Text>
@@ -73,15 +60,20 @@ export default function Contact(props) {
         </View>)}
         {
           contactArray.map((contact, i) => {
+            var obj = new Object();
+
             const usersRef2 = firebase.firestore().collection('users2').doc(contact)
             usersRef2
             .get()
             .then((document) => {
               const userInfo = document.data()
-              console.log('got this', userInfo)
+              // console.log('got this', userInfo)
+              obj.user = userInfo
+              console.log('got this', obj.user.id, obj.user.email, obj.user.fullName)
             })
             return (
               <View key={i}>
+                <Text>{i}</Text>
                 <Text>{contact}</Text>
               </View>
             )
