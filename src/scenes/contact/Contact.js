@@ -68,8 +68,8 @@ export default function Contact(props) {
             .then((document) => {
               const userInfo = document.data()
               // console.log('got this', userInfo)
-              obj.user = userInfo
-              console.log('got this', obj.user.id, obj.user.email, obj.user.fullName)
+              obj.i = userInfo
+              console.log('got this', obj.i)
             })
             return (
               <View key={i}>
