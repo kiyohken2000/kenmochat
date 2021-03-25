@@ -2,13 +2,14 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Text, View, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
+import { Divider } from 'react-native-elements'
 
 export default function Contact(props) {
   const [email, setEmail] = useState('')
   const [user, setUser] = useState([])
   const [theArray, setTheArray] = useState([]);
   const userData = props.extraData
-  const contactArray = Object.values(userData.contact?userData.contact:['example@example.com','example@example.com'])
+  const contactArray = Object.values(userData.contact?userData.contact:['example@example.com'])
 
   useEffect(() => {
     for (const elem of contactArray) {
@@ -59,13 +60,16 @@ export default function Contact(props) {
         (<View style={styles.nonbutton}>
           <Text style={styles.buttonText}>Add</Text>
         </View>)}
+        <Divider />
         {
           theArray.map((user, i) => {
             return (
               <View key={i}>
-                <Text>{user.id}</Text>
-                <Text>{user.fullName}</Text>
-                <Text>{user.email}</Text>
+                <TouchableOpacity onPress={() => props.navigation.navigate('Info', { userInfo: user, myProfile: userData })}>
+                  <Text>{user.fullName}</Text>
+                  <Text>{user.email}</Text>
+                </TouchableOpacity>
+                <Divider />
               </View>
             )
           })
