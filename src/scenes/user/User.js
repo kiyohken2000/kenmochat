@@ -19,7 +19,7 @@ export default function User({ route, navigation}) {
     navigation.goBack()
   }
 
-  const deleteContact = () => {
+  const removeContact = () => {
     const userRef2 = firebase.firestore().collection('users2').doc(myProfile.email)
     const userRef = firebase.firestore().collection('users').doc(myProfile.id)
     userRef2.update({
@@ -45,8 +45,8 @@ export default function User({ route, navigation}) {
         <TouchableOpacity style={styles.button} onPress={addContact}>
           <Text style={styles.buttonText}>Add Contact</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.delete} onPress={deleteContact}>
-          <Text style={styles.buttonText}>Delete</Text>
+        <TouchableOpacity style={styles.remove} onPress={removeContact}>
+          <Text style={styles.buttonText}>Remove</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.block}>
           <Text style={styles.buttonText}>Block</Text>

@@ -33,7 +33,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   block: {
-    backgroundColor: '#cd5c5c',
+    backgroundColor: '#800080',
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -42,8 +42,8 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
   },
-  delete: {
-    backgroundColor: '#800080',
+  remove: {
+    backgroundColor: '#cd5c5c',
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
