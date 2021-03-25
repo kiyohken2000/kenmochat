@@ -28,7 +28,7 @@ export default function Profile(props) {
         <Text style={styles.field}>Mail:</Text>
         <Text style={styles.title}>{userData.email}</Text>
         <TouchableOpacity style={styles.button} onPress={goDetail}>
-          <Text style={styles.buttonText}>Go Detail</Text>
+          <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text onPress={signOut} style={styles.footerLink}>Sign out</Text>
