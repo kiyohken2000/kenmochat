@@ -3,25 +3,30 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   root: {
     flex: 1,
-    alignItems: 'center',
+  },
+  header: {
+    marginLeft: 20,
+    marginRight: 20,
+    flexDirection: 'row',
+  },
+  headertext: {
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerbutton: {
+    flex: 1,
   },
   title: {
     fontSize: 24,
-    marginBottom: 20,
+    fontWeight: 'bold',
   },
-  button: {
+  exit: {
     backgroundColor: '#788eec',
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 20,
-    height: 48,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: 'center',
+    marginRight: 10,
   },
   buttonText: {
-    color: 'white',
+    color: 'black',
     fontSize: 16
   },
   footerView: {
@@ -35,4 +40,37 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16
   },
+  sendingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  systemMessageText: {
+    fontSize: 14,
+    color: '#fff',
+    fontWeight: 'bold'
+  },
+  modalView: {
+    margin: 30,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 120,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 1,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalcontent: {
+    width: '100%',
+  }
 })

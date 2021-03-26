@@ -31,7 +31,7 @@ export default function Home(props) {
             theArray.map((talk, i) => {
               return (
                 <View key={i} style={styles.item}>
-                  <TouchableOpacity onPress={() => props.navigation.navigate('Talk', { talkID: talk.id, myProfile: userData })}>
+                  <TouchableOpacity onPress={() => props.navigation.navigate('Talk', { talkData: talk, myProfile: userData })}>
                     <Text style={styles.title}>{talk.name}</Text>
                   </TouchableOpacity>
                   <Divider />
