@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -9,11 +9,6 @@ export default StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 20,
-    textAlign: 'center'
-  },
-  field: {
-    fontSize: 15,
-    textAlign: 'center'
   },
   button: {
     backgroundColor: '#788eec',

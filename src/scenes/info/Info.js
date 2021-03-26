@@ -3,7 +3,7 @@ import { Text, View, Image, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 
-export default function Info({ route, navigation}) {
+export default function Info({ route, navigation }) {
   const userInfo = route.params.userInfo
   const myProfile = route.params.myProfile
 
@@ -19,6 +19,10 @@ export default function Info({ route, navigation}) {
     navigation.goBack()
   }
 
+  const talkStart = () => {
+    navigation.navigate('Talk')
+  }
+
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, width: '100%' }}>
@@ -30,7 +34,7 @@ export default function Info({ route, navigation}) {
         <Text style={styles.title}>{userInfo.fullName}</Text>
         <Text style={styles.field}>Mail:</Text>
         <Text style={styles.title}>{userInfo.email}</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={talkStart}>
           <Text style={styles.buttonText}>Talk start</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.remove} onPress={removeContact}>

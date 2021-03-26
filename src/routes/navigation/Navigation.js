@@ -14,6 +14,7 @@ import Detail from '../../scenes/details'
 import Contact from '../../scenes/contact'
 import User from '../../scenes/user'
 import Info from '../../scenes/info'
+import Talk from '../../scenes/talk'
 // import DrawerNavigator from './drawer'
 import {decode, encode} from 'base-64'
 if (!global.btoa) { global.btoa = encode }
@@ -60,6 +61,9 @@ export default function App() {
       <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
         <Stack.Screen name="Home">
           {props => <Home {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Talk">
+          {props => <Talk {...props} extraData={user} />}
         </Stack.Screen>
       </Stack.Navigator>
     )

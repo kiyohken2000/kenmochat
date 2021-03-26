@@ -60,14 +60,14 @@ export default function Contact(props) {
         (<View style={styles.nonbutton}>
           <Text style={styles.buttonText}>Add</Text>
         </View>)}
-        <Divider />
+        <Divider style={styles.item} />
         {
           theArray.map((user, i) => {
             return (
-              <View key={i}>
+              <View key={i} style={styles.item}>
                 <TouchableOpacity onPress={() => props.navigation.navigate('Info', { userInfo: user, myProfile: userData })}>
-                  <Text>{user.fullName}</Text>
-                  <Text>{user.email}</Text>
+                  <Text style={styles.title}>{user.fullName}</Text>
+                  <Text style={styles.field}>{user.email}</Text>
                 </TouchableOpacity>
                 <Divider />
               </View>
