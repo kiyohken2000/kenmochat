@@ -21,7 +21,13 @@ export default function Info({ route, navigation }) {
 
   const talkStart = () => {
     const talkRef = firebase.firestore().collection('talk').doc()
-    talkRef.set({ id: talkRef.id, name:userInfo.fullName + ' , ' + myProfile.fullName })
+    talkRef.set({ 
+      id: talkRef.id, name:userInfo.fullName + ' , ' + myProfile.fullName,
+      latestMessage: {
+        text: 'Talk start',
+        createdAt: new Date().getTime()
+      }
+     })
     .then(() => {
       talkRef.get().then(doc => {
         console.log(doc.data())
