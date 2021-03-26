@@ -6,6 +6,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  main: {
+    flex: 1,
+    width: '100%',
+    marginBottom: 25,
+  },
   title: {
     fontSize: 24,
     marginBottom: 20,
@@ -44,6 +49,16 @@ export default StyleSheet.create({
   },
   remove: {
     backgroundColor: '#cd5c5c',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: 'center',
+  },
+  report: {
+    backgroundColor: '#778899',
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,

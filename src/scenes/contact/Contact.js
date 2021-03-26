@@ -6,8 +6,7 @@ import { Divider } from 'react-native-elements'
 
 export default function Contact(props) {
   const [email, setEmail] = useState('')
-  const [user, setUser] = useState([])
-  const [theArray, setTheArray] = useState([]);
+  const [theArray, setTheArray] = useState([])
   const userData = props.extraData
   const contactArray = Object.values(userData.contact?userData.contact:['example@example.com'])
 

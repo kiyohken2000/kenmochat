@@ -33,7 +33,7 @@ export default function User({ route, navigation}) {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, width: '100%' }}>
+      <View style={styles.main}>
         <Image
           style={styles.logo}
           source={{ uri: userData.avatar }}
@@ -45,14 +45,12 @@ export default function User({ route, navigation}) {
         <TouchableOpacity style={styles.button} onPress={addContact}>
           <Text style={styles.buttonText}>Add Contact</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.remove} onPress={removeContact}>
-          <Text style={styles.buttonText}>Remove</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.block}>
           <Text style={styles.buttonText}>Block</Text>
         </TouchableOpacity>
-        <View style={styles.footerView}>
-        </View>
+        <TouchableOpacity style={styles.report}>
+          <Text style={styles.buttonText}>Report</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

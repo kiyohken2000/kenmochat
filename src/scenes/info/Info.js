@@ -20,12 +20,35 @@ export default function Info({ route, navigation }) {
   }
 
   const talkStart = () => {
-    navigation.navigate('Talk')
+    const talkRef = firebase.firestore().collection('talk').doc()
+    talkRef.set({ id: talkRef.id, name:userInfo.fullName })
+    .then(() => {
+      talkRef.get().then(doc => {
+        console.log(doc.data())
+      })
+    })
+    const userRef1 = firebase.firestore().collection('users2').doc(myProfile.email)
+    const userRef2 = firebase.firestore().collection('users2').doc(userInfo.email)
+    const userRef3 = firebase.firestore().collection('users').doc(myProfile.id)
+    const userRef4 = firebase.firestore().collection('users').doc(userInfo.id)
+    userRef1.update({
+      talk: firebase.firestore.FieldValue.arrayUnion(talkRef.id)
+    })
+    userRef2.update({
+      talk: firebase.firestore.FieldValue.arrayUnion(talkRef.id)
+    })
+    userRef3.update({
+      talk: firebase.firestore.FieldValue.arrayUnion(talkRef.id)
+    })
+    userRef4.update({
+      talk: firebase.firestore.FieldValue.arrayUnion(talkRef.id)
+    })
+    navigation.navigate('Home', { talkID: talkRef.id, myProfile: myProfile, newTalk: talkRef.id, userInfo: userInfo })
   }
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, width: '100%' }}>
+      <View style={styles.main}>
         <Image
           style={styles.logo}
           source={{ uri: userInfo.avatar }}
@@ -43,8 +66,9 @@ export default function Info({ route, navigation }) {
         <TouchableOpacity style={styles.block}>
           <Text style={styles.buttonText}>Block</Text>
         </TouchableOpacity>
-        <View style={styles.footerView}>
-        </View>
+        <TouchableOpacity style={styles.report}>
+          <Text style={styles.buttonText}>Report</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

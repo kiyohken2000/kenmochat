@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 import styles from './styles';
 
-export default function Talk(props) {
-  const userData = props.extraData
+export default function Talk({ route, navigation }) {
+  const talkID = route.params.talkID
+  const myProfile = route.params.myProfile
   return (
     <View style={styles.root}>
       <Text style={styles.title}>Talk screen</Text>
-      <Text>ID: {userData.id}</Text>
-      <Text>Mail: {userData.email}</Text>
-      <Text>Name: {userData.fullName}</Text>
+      <Text>my Name: {myProfile.fullName}</Text>
+      <Text>talkID: {talkID}</Text>
     </View>
   )
 }

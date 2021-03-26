@@ -8,12 +8,14 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    marginBottom: 20,
-    textAlign: 'center'
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 10,
   },
   field: {
     fontSize: 15,
-    textAlign: 'center'
+    marginBottom: 5,
+    marginLeft: 10,
   },
   button: {
     backgroundColor: '#788eec',
@@ -39,5 +41,9 @@ export default StyleSheet.create({
     color: "#788eec",
     fontWeight: "bold",
     fontSize: 16
+  },
+  item: {
+    marginLeft: 10,
+    marginRight: 10,
   },
 })
