@@ -25,8 +25,18 @@ export default StyleSheet.create({
     backgroundColor: '#788eec',
     marginRight: 10,
   },
+  button: {
+    backgroundColor: '#788eec',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: 'center'
+  },
   buttonText: {
-    color: 'black',
+    color: 'white',
     fontSize: 16
   },
   footerView: {
@@ -49,28 +59,20 @@ export default StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold'
   },
-  modalView: {
-    margin: 30,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 120,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 1,
-    shadowRadius: 4,
-    elevation: 5,
+  modaltitle: {
+    paddingTop: 40,
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
   },
-  centeredView: {
+  modalcontainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
   },
-  modalcontent: {
-    width: '100%',
-  }
+  footerContainer: {
+    marginBottom: 70
+  },
+  item: {
+    marginLeft: 20,
+    marginRight: 20,
+  },
 })

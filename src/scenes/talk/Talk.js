@@ -197,27 +197,36 @@ export default function Talk({ route, navigation }) {
       />
       <Modal
         visible={modal}
-        transparent={true}
+        transparent={false}
         animationType={"slide" || "fade"}
+        presentationStyle={"fullScreen" || "pageSheet" || "formSheet" || "overFullScreen"}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.footerLink} onPress={() => setToggle(false)}>Close</Text>
-            <ScrollView>
+        <View style={styles.modalcontainer}>
+          <View style={{ flex: 1, width: '100%' }}>
+            <View style={styles.modaltitle}>
+              <Text style={styles.title}>Tap to invite users</Text>
+            </View>
+            <Divider />
+            <ScrollView contentContainerStyle={styles.scrollContentContainer}>
               {
                 theArray.map((user, i) => {
                   return (
-                      <View key={i} style={styles.modalcontent}>
-                        <TouchableOpacity onPress={() => addUser(user)}>
-                          <Text style={styles.title}>{user.fullName}</Text>
-                          <Text style={styles.field}>{user.email}</Text>
-                        </TouchableOpacity>
-                        <Divider />
-                      </View>
+                    <View key={i} style={styles.item}>
+                      <TouchableOpacity onPress={() => addUser(user)}>
+                        <Text style={styles.title}>{user.fullName}</Text>
+                        <Text style={styles.field}>{user.email}</Text>
+                      </TouchableOpacity>
+                      <Divider />
+                    </View>
                   )
                 })
               }
             </ScrollView>
+            <View style={styles.footerContainer}>
+              <TouchableOpacity style={styles.button} onPress={() => setToggle(false)}>
+                <Text style={styles.buttonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
