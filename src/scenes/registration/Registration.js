@@ -45,10 +45,12 @@ export default function Registration({navigation}) {
             navigation.navigate('Home', {user: data})
           })
           .catch((error) => {
+            setSpinner(false)
             alert(error)
           });
       })
       .catch((error) => {
+        setSpinner(false)
         alert(error)
     });
   }

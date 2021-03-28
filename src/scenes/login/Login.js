@@ -27,15 +27,18 @@ export default function Login({navigation}) {
           .get()
           .then(firestoreDocument => {
             if (!firestoreDocument.exists) {
+              setSpinner(false)
               alert("User does not exist anymore.")
               return;
             }
           })
           .catch(error => {
+            setSpinner(false)
             alert(error)
           });
       })
       .catch(error => {
+        setSpinner(false)
         alert(error)
       })
   }
