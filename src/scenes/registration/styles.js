@@ -54,5 +54,13 @@ export default StyleSheet.create({
     color: "#788eec",
     fontWeight: "bold",
     fontSize: 16
+  },
+  link: {
+    color: 'blue',
+    textAlign: 'center',
+    marginTop: 5
+  },
+  contact: {
+    textAlign: 'center',
   }
 })
