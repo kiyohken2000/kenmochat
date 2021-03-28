@@ -199,6 +199,21 @@ export default function Talk({ route, navigation }) {
     )
   }
 
+  function delMessage(context, message) {
+    const options = ['Delete Message', 'Cancel'];
+    const cancelButtonIndex = options.length - 1;
+    context.actionSheet().showActionSheetWithOptions({
+      options,
+      cancelButtonIndex
+    }, (buttonIndex) => {
+      switch (buttonIndex) {
+        case 0:
+          firebase.firestore().collection('talk').doc(talkData.id).collection('MESSAGES').doc(message._id).delete()
+          break
+      }
+    });
+  }
+
   function exitTalk() {
     const userRef2 = firebase.firestore().collection('users2').doc(myProfile.email)
     const userRef = firebase.firestore().collection('users').doc(myProfile.id)
@@ -291,6 +306,7 @@ export default function Talk({ route, navigation }) {
         onPressAvatar={showProfile}
         renderUsernameOnMessage={true}
         renderActions={renderActions}
+        onLongPress={delMessage}
         placeholder='Type your message here...'
       />
       <Modal
