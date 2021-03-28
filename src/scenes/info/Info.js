@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
+import { Avatar } from 'react-native-elements'
 
 export default function Info({ route, navigation }) {
   const userInfo = route.params.userInfo
@@ -52,13 +53,25 @@ export default function Info({ route, navigation }) {
     navigation.navigate('Home', { talkID: talkRef.id, myProfile: myProfile, newTalk: talkRef.id, userInfo: userInfo })
   }
 
+  const block = () => {
+    alert('Added to the block list.')
+  }
+
+  const report = () => {
+    alert('Report has been sent.')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.main}>
-        <Image
-          style={styles.logo}
-          source={{ uri: userInfo.avatar }}
-        />
+        <View style={styles.avatar}>
+          <Avatar
+            size="xlarge"
+            rounded
+            title="NI"
+            source={{ uri: userInfo.avatar }}
+          />
+        </View>
         <Text style={styles.field}>Name:</Text>
         <Text style={styles.title}>{userInfo.fullName}</Text>
         <Text style={styles.field}>Mail:</Text>
@@ -69,10 +82,10 @@ export default function Info({ route, navigation }) {
         <TouchableOpacity style={styles.remove} onPress={removeContact}>
           <Text style={styles.buttonText}>Remove</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.block}>
+        <TouchableOpacity style={styles.block} onPress={block}>
           <Text style={styles.buttonText}>Block</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.report}>
+        <TouchableOpacity style={styles.report} onPress={report}>
           <Text style={styles.buttonText}>Report</Text>
         </TouchableOpacity>
       </View>

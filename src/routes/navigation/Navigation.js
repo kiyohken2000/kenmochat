@@ -15,6 +15,7 @@ import Contact from '../../scenes/contact'
 import User from '../../scenes/user'
 import Info from '../../scenes/info'
 import Talk from '../../scenes/talk'
+import Participant from '../../scenes/participant'
 // import DrawerNavigator from './drawer'
 import {decode, encode} from 'base-64'
 if (!global.btoa) { global.btoa = encode }
@@ -64,6 +65,9 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="Talk">
           {props => <Talk {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Participant">
+          {props => <Participant {...props} extraData={user} />}
         </Stack.Screen>
       </Stack.Navigator>
     )

@@ -3,6 +3,7 @@ import { Text, View, TextInput, TouchableOpacity, ScrollView, Image } from 'reac
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Divider } from 'react-native-elements'
+import { Avatar } from 'react-native-elements'
 
 export default function Contact(props) {
   const [email, setEmail] = useState('')
@@ -38,6 +39,14 @@ export default function Contact(props) {
     });
   }
 
+  theArray.sort(function(a, b) {
+    if (a.email < b.email) {
+      return -1;
+    } else {
+      return 1;
+    }
+  })
+
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, width: '100%' }}>
@@ -65,8 +74,20 @@ export default function Contact(props) {
             return (
               <View key={i} style={styles.item}>
                 <TouchableOpacity onPress={() => props.navigation.navigate('Info', { userInfo: user, myProfile: userData })}>
-                  <Text style={styles.title}>{user.fullName}</Text>
-                  <Text style={styles.field}>{user.email}</Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <View style={styles.avatar}>
+                      <Avatar
+                        size="medium"
+                        rounded
+                        title="NI"
+                        source={{ uri: user.avatar }}
+                      />
+                    </View>
+                    <View>
+                      <Text style={styles.title}>{user.fullName}</Text>
+                      <Text style={styles.field}>{user.email}</Text>
+                    </View>
+                  </View>
                 </TouchableOpacity>
                 <Divider />
               </View>

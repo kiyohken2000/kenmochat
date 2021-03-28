@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "kenmochat",
-    "slug": "kenmochat",
+    "name": "PINE",
+    "slug": "pine",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -17,13 +17,26 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": true,
+      "fallbackToCacheTimeout": 10000
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "net.votepurchase.pine",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Use the photo library to upload images."
+      }
+    },
+    "android": {
+      "package": "net.votepurchase.pine",
+      "versionCode": 1,
+      "permissions": [
+        "VIBRATE"
+      ]
     },
     "packagerOpts": {
       "config": "metro.config.js",

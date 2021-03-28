@@ -15,12 +15,9 @@ export default StyleSheet.create({
     fontSize: 15,
     textAlign: 'center'
   },
-  logo: {
-    flex: 1,
-    height: 120,
-    width: 120,
+  avatar: {
+    margin: 30,
     alignSelf: "center",
-    margin: 30
   },
   button: {
     backgroundColor: '#788eec',

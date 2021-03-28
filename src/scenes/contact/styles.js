@@ -17,13 +17,6 @@ export default StyleSheet.create({
     marginBottom: 5,
     marginLeft: 10,
   },
-  logo: {
-    flex: 1,
-    height: 120,
-    width: 120,
-    alignSelf: "center",
-    margin: 30
-  },
   input: {
     height: 48,
     borderRadius: 5,
@@ -74,5 +67,8 @@ export default StyleSheet.create({
   item: {
     marginLeft: 10,
     marginRight: 10,
+  },
+  avatar: {
+    marginTop: 5,
   },
 })

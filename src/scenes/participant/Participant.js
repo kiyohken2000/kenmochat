@@ -4,7 +4,7 @@ import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Avatar } from 'react-native-elements'
 
-export default function User({ route, navigation }) {
+export default function Participant({ route, navigation }) {
   const userData = route.params.user
   const myProfile = route.params.myProfile
 

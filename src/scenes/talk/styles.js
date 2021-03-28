@@ -75,4 +75,11 @@ export default StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
   },
+  avatar: {
+    margin: 10,
+    alignSelf: "center",
+  },
+  userinfo: {
+    justifyContent: 'center',
+  },
 })

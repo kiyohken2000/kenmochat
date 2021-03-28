@@ -3,12 +3,14 @@ import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 export default function Registration({navigation}) {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [spinner, setSpinner] = useState(false)
 
   const onFooterLinkPress = () => {
     navigation.navigate('Login')
@@ -19,7 +21,7 @@ export default function Registration({navigation}) {
       alert("Passwords don't match.")
       return
     }
-  
+    setSpinner(true)
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -107,6 +109,11 @@ export default function Registration({navigation}) {
           <Text style={styles.footerText}>Already got an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
         </View>
       </KeyboardAwareScrollView>
+      <Spinner
+        visible={spinner}
+        textStyle={{ color: "#fff" }}
+        overlayColor="rgba(0,0,0,0.5)"
+      />
     </View>
   )
 }

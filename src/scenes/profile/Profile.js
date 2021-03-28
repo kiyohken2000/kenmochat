@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, Image } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Restart } from 'fiction-expo-restart'
+import { Avatar } from 'react-native-elements'
 
 export default function Profile(props) {
   const userData = props.extraData
@@ -19,10 +20,14 @@ export default function Profile(props) {
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, width: '100%' }}>
-        <Image
-          style={styles.logo}
-          source={{ uri: userData.avatar }}
-        />
+        <View style={styles.avatar}>
+          <Avatar
+            size="xlarge"
+            rounded
+            title="NI"
+            source={{ uri: userData.avatar }}
+          />
+        </View>
         <Text style={styles.field}>Name:</Text>
         <Text style={styles.title}>{userData.fullName}</Text>
         <Text style={styles.field}>Mail:</Text>
