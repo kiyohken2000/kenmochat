@@ -29,6 +29,14 @@ export default function Home(props) {
     }
   },[])
 
+  theArray.sort(function(a, b) {
+    if (a.latestMessage.createdAt > b.latestMessage.createdAt) {
+      return -1;
+    } else {
+      return 1;
+    }
+  })
+
   return (
     <View style={styles.container}>
       <View style={{ flex: 1, width: '100%' }}>
