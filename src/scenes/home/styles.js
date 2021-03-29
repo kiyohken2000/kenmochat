@@ -17,6 +17,19 @@ export default StyleSheet.create({
     marginBottom: 5,
     marginLeft: 10,
   },
+  latestMessage: {
+    fontSize: 15,
+    marginBottom: 5,
+    marginLeft: 10,
+    opacity: 0.4,
+    alignSelf: 'flex-start',
+  },
+  latestDate: {
+    fontSize: 15,
+    marginLeft: 10,
+    opacity: 0.4,
+    alignSelf: 'flex-end',
+  },
   button: {
     backgroundColor: '#788eec',
     marginLeft: 30,
@@ -45,5 +58,9 @@ export default StyleSheet.create({
   item: {
     marginLeft: 10,
     marginRight: 10,
+  },
+  avatar: {
+    margin: 10,
+    alignSelf: "center",
   },
 })

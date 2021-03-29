@@ -9,6 +9,7 @@ import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 import * as ImageManipulator from 'expo-image-manipulator'
 import Constants from 'expo-constants'
+import Dialog from 'react-native-dialog'
 
 export default function Talk({ route, navigation }) {
   const talkData = route.params.talkData
@@ -19,6 +20,7 @@ export default function Talk({ route, navigation }) {
   const [theArray, setTheArray] = useState([])
   const [progress, setProgress] = useState('')
   const [image, setImage] = useState('')
+  const [dialog, setDialog] = useState(false)
   const contactArray = Object.values(myProfile.contact?myProfile.contact:['example@example.com'])
 
   async function handleSend(messages) {
@@ -43,6 +45,7 @@ export default function Talk({ route, navigation }) {
         {
           latestMessage: {
             text,
+            avatar: myProfile.avatar,
             createdAt: new Date().getTime()
           }
         },
@@ -158,6 +161,7 @@ export default function Talk({ route, navigation }) {
             putTask.snapshot.ref.getDownloadURL().then(downloadURL => {
               setProgress('')
               setImage(downloadURL)
+              setDialog(true)
             })
           })
         }
@@ -165,8 +169,11 @@ export default function Talk({ route, navigation }) {
         console.log('error',e.message);
         alert("The size may be too much.");
     }
+  }
+
+  function sendImage() {
     const messageRef = firebase.firestore().collection('talk')
-    await messageRef
+    messageRef
       .doc(talkData.id)
       .collection('MESSAGES')
       .add({
@@ -180,7 +187,8 @@ export default function Talk({ route, navigation }) {
           name: myProfile.fullName,
         }
       });
-      setImage('')
+    setDialog(false)
+    setImage('')
   }
 
   function renderActions(props) {
@@ -356,6 +364,11 @@ export default function Talk({ route, navigation }) {
           </View>
         </View>
       </Modal>
+      <Dialog.Container visible={dialog}>
+        <Dialog.Title>Send image?</Dialog.Title>
+        <Dialog.Button label="OK" bold={true} onPress={() => sendImage()} />
+        <Dialog.Button label="Cancel" onPress={() => setDialog(false)} />
+      </Dialog.Container>
     </View>
   )
 }

@@ -14732,6 +14732,13 @@ react-native-communications@^2.2.1:
   resolved "https://registry.yarnpkg.com/react-native-communications/-/react-native-communications-2.2.1.tgz#7883b56b20a002eeb790c113f8616ea8692ca795"
   integrity sha1-eIO1ayCgAu63kMET+GFuqGksp5U=
 
+react-native-dialog@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-dialog/-/react-native-dialog-6.2.0.tgz#d84123d6b5a3485891ffd6db9f571502f76f84cb"
+  integrity sha512-J16bhTGTDTQYFtWbfKIMD5GM4QFIupNm3hFjm7/X/VZ1ZeOsiTKTRt/JGeX6QPTAOhRiN1A+IPIfXPzgUmhUVw==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-divider@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-native-divider/-/react-native-divider-1.0.3.tgz#fcc1cf6d6e3d40a09509991dc42cb49482bb0241"
