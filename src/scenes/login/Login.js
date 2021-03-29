@@ -45,6 +45,7 @@ export default function Login({navigation}) {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
       <KeyboardAwareScrollView
         style={{ flex: 1, width: '100%' }}
         keyboardShouldPersistTaps="always">

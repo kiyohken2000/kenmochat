@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import { Text, View, StatusBar, TouchableOpacity, ScrollView } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Avatar } from 'react-native-elements'
@@ -30,29 +30,32 @@ export default function User({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.main}>
-        <View style={styles.avatar}>
-          <Avatar
-            size="xlarge"
-            rounded
-            title="NI"
-            source={{ uri: userData.avatar }}
-          />
+      <StatusBar barStyle="light-content" />
+      <ScrollView style={styles.main}>
+        <View>
+          <View style={styles.avatar}>
+            <Avatar
+              size="xlarge"
+              rounded
+              title="NI"
+              source={{ uri: userData.avatar }}
+            />
+          </View>
+          <Text style={styles.field}>Name:</Text>
+          <Text style={styles.title}>{userData.fullName}</Text>
+          <Text style={styles.field}>Mail:</Text>
+          <Text style={styles.title}>{userData.email}</Text>
+          <TouchableOpacity style={styles.button} onPress={addContact}>
+            <Text style={styles.buttonText}>Add Contact</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.block} onPress={block}>
+            <Text style={styles.buttonText}>Block</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.report} onPress={report}>
+            <Text style={styles.buttonText}>Report</Text>
+          </TouchableOpacity>
         </View>
-        <Text style={styles.field}>Name:</Text>
-        <Text style={styles.title}>{userData.fullName}</Text>
-        <Text style={styles.field}>Mail:</Text>
-        <Text style={styles.title}>{userData.email}</Text>
-        <TouchableOpacity style={styles.button} onPress={addContact}>
-          <Text style={styles.buttonText}>Add Contact</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.block} onPress={block}>
-          <Text style={styles.buttonText}>Block</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.report} onPress={report}>
-          <Text style={styles.buttonText}>Report</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Divider, Avatar } from 'react-native-elements'
@@ -49,6 +49,7 @@ export default function Home(props) {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
       <View style={{ flex: 1, width: '100%' }}>
         <ScrollView>
           {

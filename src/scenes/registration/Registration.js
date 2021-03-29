@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View, Linking } from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View, Linking, StatusBar } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
@@ -57,6 +57,7 @@ export default function Registration({navigation}) {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
       <KeyboardAwareScrollView
         style={{ flex: 1, width: '100%' }}
         keyboardShouldPersistTaps="always">
