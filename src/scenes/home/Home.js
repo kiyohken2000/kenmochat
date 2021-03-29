@@ -6,7 +6,6 @@ import { Divider, Avatar } from 'react-native-elements'
 
 export default function Home(props) {
   const [theArray, setTheArray] = useState([])
-  const [value, setValue] = useState('initial')
   const userData = props.extraData
   const talkArray = Object.values(userData.talk?userData.talk:['5U9jbKELiLAO7ZQEYt0K'])
 
