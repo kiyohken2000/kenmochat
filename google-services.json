@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "866526446291",
+    "firebase_url": "https://kenmochat-default-rtdb.firebaseio.com",
+    "project_id": "kenmochat",
+    "storage_bucket": "kenmochat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866526446291:android:00abaae1ed493542160a26",
+        "android_client_info": {
+          "package_name": "net.votepurchase.pine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866526446291-lmccrshp6uo4drfb88qbtuqphbes4qpg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFDo5_dSmBHCdei2ZEvlOf1olbFBTpOIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866526446291-lmccrshp6uo4drfb88qbtuqphbes4qpg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
