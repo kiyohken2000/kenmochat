@@ -225,11 +225,15 @@ export default function Talk({ route, navigation }) {
   function exitTalk() {
     const userRef2 = firebase.firestore().collection('users2').doc(myProfile.email)
     const userRef = firebase.firestore().collection('users').doc(myProfile.id)
+    const talkRef = firebase.firestore().collection('talk').doc(talkData.id)
     userRef2.update({
       talk: firebase.firestore.FieldValue.arrayRemove(talkData.id)
     })
     userRef.update({
       talk: firebase.firestore.FieldValue.arrayRemove(talkData.id)
+    })
+    talkRef.update({
+      members: firebase.firestore.FieldValue.arrayRemove(myProfile.email)
     })
     navigation.goBack()
   }
@@ -263,11 +267,15 @@ export default function Talk({ route, navigation }) {
   function addUser(invUser) {
     const userRef2 = firebase.firestore().collection('users2').doc(invUser.email)
     const userRef1 = firebase.firestore().collection('users').doc(invUser.id)
+    const talkRef = firebase.firestore().collection('talk').doc(talkData.id)
     userRef2.update({
       talk: firebase.firestore.FieldValue.arrayUnion(talkData.id)
     })
     userRef1.update({
       talk: firebase.firestore.FieldValue.arrayUnion(talkData.id)
+    })
+    talkRef.update({
+      members: firebase.firestore.FieldValue.arrayUnion(invUser.email)
     })
     setToggle(false)
   }
