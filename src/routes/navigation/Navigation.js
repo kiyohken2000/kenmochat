@@ -36,58 +36,6 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
 
-  registerForPushNotificationsAsync = async () => {
-
-    // 実機であるかどうかをチェック
-     if (Constants.isDevice) {
-       const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-       let finalStatus = existingStatus;
-       if (existingStatus !== 'granted') {
-         const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-         finalStatus = status;
-       }
-   
-     // 通知が許可されているかどうかをチェック
-       if (finalStatus !== 'granted') {
-         alert('Failed to get push token for push notification!');
-         return;
-       }
-   
-       // デバイストークンを取得
-       const token = (await Notifications.getExpoPushTokenAsync()).data;
-       console.log(token);
-       this.setState({ expoPushToken: token });
-     } else {
-       alert('Must use physical device for Push Notifications');
-     }
-   
-   // 端末がAndroidである場合は次の設定を行う
-     if (Platform.OS === 'android') {
-       Notifications.setNotificationChannelAsync('default', {
-         name: 'default',
-         importance: Notifications.AndroidImportance.MAX,
-         vibrationPattern: [0, 250, 250, 250],
-         lightColor: '#FF231F7C',
-       });
-     }
-   };
-
-   (async () => {
-    const { status: existingStatus } = await Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    );
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-    if (finalStatus !== "granted") {
-      return;
-    }
-    const token = await Notifications.getExpoPushTokenAsync();
-    console.log("token!!!", token);
-  })();
-
   useEffect(() => {
     const usersRef = firebase.firestore().collection('users');
     firebase.auth().onAuthStateChanged(user => {
@@ -104,6 +52,22 @@ export default function App() {
       }
     });
   }, []);
+
+   (async () => {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+    if (finalStatus !== "granted") {
+      return;
+    }
+    const token = await Notifications.getExpoPushTokenAsync();
+    await firebase.firestore().collection("tokens").doc(user.email).set({ token: token.data })
+  })();
 
   if (loading) {
     return (
