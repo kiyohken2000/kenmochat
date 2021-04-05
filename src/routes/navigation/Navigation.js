@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import FontIcon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 import Login from '../../scenes/login'
 import Registration from '../../scenes/registration'
 import Home from '../../scenes/home'
@@ -16,6 +17,8 @@ import User from '../../scenes/user'
 import Info from '../../scenes/info'
 import Talk from '../../scenes/talk'
 import Participant from '../../scenes/participant'
+import Stream from '../../scenes/stream'
+import Chat from '../../scenes/chat'
 import * as Notifications from 'expo-notifications'
 import * as Permissions from "expo-permissions"
 // import DrawerNavigator from './drawer'
@@ -83,6 +86,22 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="Talk">
           {props => <Talk {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Participant">
+          {props => <Participant {...props} extraData={user} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    )
+  }
+
+  const StreamNavigator = () => {
+    return (
+      <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+        <Stack.Screen name="Stream">
+          {props => <Stream {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Chat">
+          {props => <Chat {...props} extraData={user} />}
         </Stack.Screen>
         <Stack.Screen name="Participant">
           {props => <Participant {...props} extraData={user} />}
@@ -161,6 +180,15 @@ export default function App() {
                 solid
               />
             )
+            case 'Stream':
+            return (
+              <FontIcon
+                name="stream"
+                color={focused ? colors.lightPurple : colors.gray}
+                size={20}
+                solid
+              />
+            )
             default:
               return <View />
           }
@@ -176,6 +204,7 @@ export default function App() {
       <Tab.Screen name="Home" component={HomeNavigator} />
       <Tab.Screen name="Contact" component={ContactNavigator} />
       <Tab.Screen name="Profile" component={ProfileNavigator} />
+      <Tab.Screen name="Stream" component={StreamNavigator} />
     </Tab.Navigator>
   )
 
