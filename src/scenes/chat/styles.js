@@ -1,34 +1,29 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    alignItems: 'center',
+  },
+  header: {
+    marginLeft: 20,
+    marginRight: 20,
+    flexDirection: 'row',
+  },
+  headertext: {
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerbutton: {
+    flex: 1,
   },
   title: {
     fontSize: 24,
-    marginTop: 5,
-    marginBottom: 5,
-    marginLeft: 10,
+    fontWeight: 'bold',
   },
-  field: {
-    fontSize: 15,
-    marginBottom: 5,
-    marginLeft: 10,
-  },
-  latestMessage: {
-    fontSize: 15,
-    marginBottom: 5,
-    marginLeft: 10,
-    opacity: 0.4,
-    alignSelf: 'flex-start',
-  },
-  latestDate: {
-    fontSize: 15,
-    marginLeft: 10,
-    opacity: 0.4,
-    alignSelf: 'flex-end',
+  exit: {
+    backgroundColor: '#788eec',
+    marginRight: 10,
   },
   button: {
     backgroundColor: '#788eec',
@@ -38,7 +33,7 @@ export default StyleSheet.create({
     height: 48,
     borderRadius: 5,
     alignItems: "center",
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   buttonText: {
     color: 'white',
@@ -55,12 +50,36 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16
   },
+  sendingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  systemMessageText: {
+    fontSize: 14,
+    color: '#fff',
+    fontWeight: 'bold'
+  },
+  modaltitle: {
+    paddingTop: 40,
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  modalcontainer: {
+    flex: 1,
+  },
+  footerContainer: {
+    marginBottom: 70
+  },
   item: {
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
   avatar: {
     margin: 10,
     alignSelf: "center",
+  },
+  userinfo: {
+    justifyContent: 'center',
   },
 })
