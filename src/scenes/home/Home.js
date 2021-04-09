@@ -66,8 +66,8 @@ export default function Home(props) {
                         />
                       </View>
                       <View style={{ flex: 1, width: '100%' }}>
-                        <Text style={styles.title}>{talk.name}</Text>
-                        <Text style={styles.latestMessage}>{talk.latestMessage.text}</Text>
+                        <Text style={styles.title} numberOfLines={1}>{talk.name}</Text>
+                        <Text style={styles.latestMessage} numberOfLines={1}>{talk.latestMessage.text}</Text>
                         <Text style={styles.latestDate}>{displaytime(talk.latestMessage.createdAt)}</Text>
                       </View>
                     </View>
