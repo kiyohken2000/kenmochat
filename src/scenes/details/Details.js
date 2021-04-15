@@ -23,7 +23,7 @@ export default function Detail({ route, navigation }) {
   const ImageChoiceAndUpload = async () => {
     try {
       if (Constants.platform.ios) {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
         if (status !== 'granted') {
           alert("Permission is required for use.");
           return;

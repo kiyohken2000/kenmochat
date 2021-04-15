@@ -135,7 +135,7 @@ export default function Chat({route, navigation }) {
   async function handlePickImage() {
     try {
       if (Constants.platform.ios) {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
         if (status !== 'granted') {
           alert("Permission is required for use.");
           return;
