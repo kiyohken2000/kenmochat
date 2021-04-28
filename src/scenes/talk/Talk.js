@@ -46,7 +46,8 @@ export default function Talk({ route, navigation }) {
           latestMessage: {
             text,
             avatar: myProfile.avatar,
-            createdAt: new Date().getTime()
+            createdAt: new Date().getTime(),
+            email: myProfile.email
           }
         },
         { merge: true }

@@ -69,7 +69,7 @@ export default function App() {
       return;
     }
     const token = await Notifications.getExpoPushTokenAsync();
-    await firebase.firestore().collection("tokens").doc(user.email).set({ token: token.data })
+    await firebase.firestore().collection("tokens").doc(user.email).set({ token: token.data, email: user.email })
   })();
 
   if (loading) {
