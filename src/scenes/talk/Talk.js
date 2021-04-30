@@ -8,6 +8,7 @@ import { Divider, Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 import * as ImageManipulator from 'expo-image-manipulator'
+import Clipboard from 'expo-clipboard'
 import Constants from 'expo-constants'
 import Dialog from 'react-native-dialog'
 
@@ -209,7 +210,7 @@ export default function Talk({ route, navigation }) {
   }
 
   function delMessage(context, message) {
-    const options = ['Delete Message', 'Cancel'];
+    const options = ['Delete Message', 'Copy Text', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
     context.actionSheet().showActionSheetWithOptions({
       options,
@@ -217,7 +218,15 @@ export default function Talk({ route, navigation }) {
     }, (buttonIndex) => {
       switch (buttonIndex) {
         case 0:
-          firebase.firestore().collection('talk').doc(talkData.id).collection('MESSAGES').doc(message._id).delete()
+          if (message.user.email == myProfile.email) {
+            firebase.firestore().collection('talk').doc(talkData.id).collection('MESSAGES').doc(message._id).delete()
+          } else {
+            alert('You can only delete own messages.')
+          }
+          break
+        case 1:
+          const text = message.text
+          Clipboard.setString(text)
           break
       }
     });
