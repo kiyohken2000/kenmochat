@@ -7662,6 +7662,11 @@ expo-pwa@0.0.50:
     fs-extra "9.0.0"
     update-check "1.5.3"
 
+expo-speech@~9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/expo-speech/-/expo-speech-9.1.0.tgz#623ecd97211d6ad6ecefcaa8033895dd207be636"
+  integrity sha512-5yIMVo1auAwClVnlJnCRyJqKS82IeQXzTCamP4iP4LmHDR5+9sae/D/mD5mX7KV3brWf3n0sEyFhuU7WqgMQvg==
+
 expo-updates@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.4.2.tgz#15862bc209fa3fb98d3fa16b7aac4edfcc33f182"

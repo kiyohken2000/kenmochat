@@ -86,14 +86,14 @@ export default function Stream( props ) {
         </ScrollView>
       </View>
       <View style={styles.Overlay}>
-          <View style={{ flexDirection: 'row'}}>
-            <View style={{ position: 'absolute', right: 0, alignSelf:'center' }}>
-              <TouchableOpacity onPress={addRoom}>
-                <Icon name="plus-circle" size={65} color="orange"/>
-              </TouchableOpacity>
-            </View>
+        <View style={{ flexDirection: 'row'}}>
+          <View style={{ position: 'absolute', right: 0, alignSelf:'center' }}>
+            <TouchableOpacity onPress={addRoom}>
+              <Icon name="plus-circle" size={65} color="orange"/>
+            </TouchableOpacity>
           </View>
         </View>
+      </View>
     </View>
   )
 }

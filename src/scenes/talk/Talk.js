@@ -6,11 +6,11 @@ import { firebase } from '../../firebase/config'
 import { IconButton } from 'react-native-paper'
 import { Divider, Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker'
-import * as Permissions from 'expo-permissions'
-import * as ImageManipulator from 'expo-image-manipulator'
 import Clipboard from 'expo-clipboard'
 import Constants from 'expo-constants'
+import * as Speech from 'expo-speech'
 import Dialog from 'react-native-dialog'
+import Icon from 'react-native-vector-icons/Feather'
 
 export default function Talk({ route, navigation }) {
   const talkData = route.params.talkData
@@ -22,6 +22,7 @@ export default function Talk({ route, navigation }) {
   const [progress, setProgress] = useState('')
   const [image, setImage] = useState('')
   const [dialog, setDialog] = useState(false)
+  const [talking, setTalking] = useState(false)
   const contactArray = Object.values(myProfile.contact?myProfile.contact:['example@example.com'])
 
   async function handleSend(messages) {
@@ -210,7 +211,7 @@ export default function Talk({ route, navigation }) {
   }
 
   function delMessage(context, message) {
-    const options = ['Delete Message', 'Copy Text', 'Cancel'];
+    const options = ['Delete Message', 'Copy Text', 'Speech', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
     context.actionSheet().showActionSheetWithOptions({
       options,
@@ -228,8 +229,31 @@ export default function Talk({ route, navigation }) {
           const text = message.text
           Clipboard.setString(text)
           break
+        case 2:
+          const script = message.text
+          speak(script)
+          break
       }
     });
+  }
+
+  function speak(txt) {
+    const thingToSay = txt
+    Speech.speak(thingToSay,
+      {
+        language: "ja",
+        onStart: setTalking(true),
+        onDone: () => {done()}
+      })
+  }
+
+  function stop() {
+    Speech.stop()
+    setTalking(false)
+  }
+
+  function done() {
+    setTalking(false)
   }
 
   function exitTalk() {
@@ -335,6 +359,12 @@ export default function Talk({ route, navigation }) {
         onLongPress={delMessage}
         placeholder='Type your message here...'
       />
+      {talking?
+        <View style={styles.Overlay}>
+          <TouchableOpacity onPress={stop}>
+            <Icon name="stop-circle" size={65} color="red"/>
+          </TouchableOpacity>
+        </View>:null}
       <Modal
         visible={modal}
         transparent={false}

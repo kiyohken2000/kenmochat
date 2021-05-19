@@ -20,7 +20,6 @@ import Participant from '../../scenes/participant'
 import Stream from '../../scenes/stream'
 import Chat from '../../scenes/chat'
 import * as Notifications from 'expo-notifications'
-import * as Permissions from "expo-permissions"
 // import DrawerNavigator from './drawer'
 import {decode, encode} from 'base-64'
 if (!global.btoa) { global.btoa = encode }
@@ -57,12 +56,10 @@ export default function App() {
   }, []);
 
    (async () => {
-    const { status: existingStatus } = await Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    );
+    const { status: existingStatus } = await Notifications.getPermissionsAsync()
     let finalStatus = existingStatus;
     if (existingStatus !== "granted") {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
     if (finalStatus !== "granted") {

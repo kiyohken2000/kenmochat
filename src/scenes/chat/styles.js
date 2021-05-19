@@ -82,4 +82,12 @@ export default StyleSheet.create({
   userinfo: {
     justifyContent: 'center',
   },
+  Overlay: {
+    flex: 1,
+    position: "absolute",
+    opacity: 1.0,
+    bottom: 60,
+    right: 30,
+    justifyContent: "center",
+  },
 })

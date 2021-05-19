@@ -6,11 +6,11 @@ import { IconButton } from 'react-native-paper'
 import { firebase } from '../../firebase/config'
 import { Divider, Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker'
-import * as Permissions from 'expo-permissions'
-import * as ImageManipulator from 'expo-image-manipulator'
+import * as Speech from 'expo-speech'
 import Clipboard from 'expo-clipboard'
 import Constants from 'expo-constants'
 import Dialog from 'react-native-dialog'
+import Icon from 'react-native-vector-icons/Feather'
 
 export default function Chat({route, navigation }) {
   const myProfile = route.params.myProfile
@@ -20,6 +20,7 @@ export default function Chat({route, navigation }) {
   const [title, setTitle] = useState('')
   const [image, setImage] = useState('')
   const [dialog, setDialog] = useState(false)
+  const [talking, setTalking] = useState(false)
 
   async function handleSend(messages) {
     const text = messages[0].text;
@@ -206,7 +207,7 @@ export default function Chat({route, navigation }) {
   }
 
   function delMessage(context, message) {
-    const options = ['Delete Message', 'Copy Text', 'Cancel'];
+    const options = ['Delete Message', 'Copy Text', 'Speech', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
     context.actionSheet().showActionSheetWithOptions({
       options,
@@ -224,8 +225,31 @@ export default function Chat({route, navigation }) {
             const text = message.text
             Clipboard.setString(text)
             break
+          case 2:
+            const script = message.text
+            speak(script)
+            break
       }
     });
+  }
+
+  function speak(txt) {
+    const thingToSay = txt
+    Speech.speak(thingToSay,
+      {
+        language: "ja",
+        onStart: setTalking(true),
+        onDone: () => {done()}
+      })
+  }
+
+  function stop() {
+    Speech.stop()
+    setTalking(false)
+  }
+
+  function done() {
+    setTalking(false)
   }
 
   function exitTalk() {
@@ -279,6 +303,12 @@ export default function Chat({route, navigation }) {
         onLongPress={delMessage}
         placeholder='Type your message here...'
       />
+      {talking?
+        <View style={styles.Overlay}>
+          <TouchableOpacity onPress={stop}>
+            <Icon name="stop-circle" size={65} color="red"/>
+          </TouchableOpacity>
+        </View>:null}
       <Dialog.Container visible={dialog}>
         <Dialog.Title>Send image?</Dialog.Title>
         <Dialog.Button label="OK" bold={true} onPress={() => sendImage()} />
