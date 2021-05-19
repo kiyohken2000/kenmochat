@@ -221,14 +221,14 @@ export default function Chat({route, navigation }) {
             alert('You can only delete own messages.')
           }
           break
-          case 1:
-            const text = message.text
-            Clipboard.setString(text)
-            break
-          case 2:
-            const script = message.text
-            speak(script)
-            break
+        case 1:
+          const text = message.text
+          Clipboard.setString(text)
+          break
+        case 2:
+          const script = message.text
+          speak(script)
+          break
       }
     });
   }
