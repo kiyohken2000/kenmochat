@@ -30,6 +30,10 @@ export default StyleSheet.create({
     opacity: 0.4,
     alignSelf: 'flex-end',
   },
+  datecontainer: {
+    flexDirection:'row',
+    justifyContent: 'flex-end',
+  },
   button: {
     backgroundColor: '#788eec',
     marginLeft: 30,

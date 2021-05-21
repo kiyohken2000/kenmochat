@@ -74,7 +74,10 @@ export default function Stream( props ) {
                       <View style={{ flex: 1, width: '100%' }}>
                         <Text style={styles.title} numberOfLines={1}>{talk.name}</Text>
                         <Text style={styles.latestMessage} numberOfLines={1}>{talk.latestMessage.text}</Text>
-                        <Text style={styles.latestDate}>{displaytime(talk.latestMessage.createdAt)}</Text>
+                        <View style={styles.datecontainer}>
+                          {talk.id === 'WIMi5WBba4N2XNtK5o5g'?<Text>🤖bot room🤖</Text>:null}
+                          <Text style={styles.latestDate}>{displaytime(talk.latestMessage.createdAt)}</Text>
+                        </View>
                       </View>
                     </View>
                   </TouchableOpacity>
