@@ -35,8 +35,9 @@
     },
     "android": {
       "package": "net.votepurchase.pine",
-      "versionCode": 8,
+      "versionCode": 9,
       "googleServicesFile": "./google-services.json",
+      "userInterfaceStyle": "automatic",
       "permissions": [
         "VIBRATE"
       ]
