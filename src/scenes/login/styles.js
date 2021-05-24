@@ -13,7 +13,8 @@ export default StyleSheet.create({
     height: 180,
     width: 180,
     alignSelf: "center",
-    margin: 30
+    margin: 30,
+    borderRadius: 20
   },
   input: {
     height: 48,
@@ -25,6 +26,18 @@ export default StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 16
+  },
+  darkinput: {
+    height: 48,
+    borderRadius: 5,
+    overflow: 'hidden',
+    backgroundColor: '#303030',
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 16,
+    color: 'white'
   },
   button: {
     backgroundColor: '#788eec',

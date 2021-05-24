@@ -52,13 +52,13 @@ export default StyleSheet.create({
     height: 48,
     borderRadius: 5,
     overflow: 'hidden',
-    backgroundColor: 'white',
+    backgroundColor: '#303030',
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 16,
-    backgroundColor: '#808080'
+    color: 'white'
   },
   button: {
     backgroundColor: '#788eec',

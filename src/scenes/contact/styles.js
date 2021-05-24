@@ -44,7 +44,7 @@ export default StyleSheet.create({
     height: 48,
     borderRadius: 5,
     overflow: 'hidden',
-    backgroundColor: '#808080',
+    backgroundColor: '#303030',
     marginTop: 10,
     marginLeft: 30,
     marginRight: 30,
