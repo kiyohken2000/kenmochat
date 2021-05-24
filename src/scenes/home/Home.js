@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
+import { Text, View, TouchableOpacity, ScrollView, StatusBar, useColorScheme } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Divider, Avatar } from 'react-native-elements'
@@ -8,6 +8,7 @@ export default function Home(props) {
   const [theArray, setTheArray] = useState([])
   const userData = props.extraData
   const talkArray = Object.values(userData.talk?userData.talk:['5U9jbKELiLAO7ZQEYt0K'])
+  const scheme = useColorScheme()
 
   useEffect(() => {
     setTheArray([])
@@ -66,9 +67,9 @@ export default function Home(props) {
                         />
                       </View>
                       <View style={{ flex: 1, width: '100%' }}>
-                        <Text style={styles.title} numberOfLines={1}>{talk.name}</Text>
-                        <Text style={styles.latestMessage} numberOfLines={1}>{talk.latestMessage.text}</Text>
-                        <Text style={styles.latestDate}>{displaytime(talk.latestMessage.createdAt)}</Text>
+                        <Text style={scheme === 'dark' ? styles.darktitle : styles.title} numberOfLines={1}>{talk.name}</Text>
+                        <Text style={scheme === 'dark' ? styles.darkfield : styles.latestMessage} numberOfLines={1}>{talk.latestMessage.text}</Text>
+                        <Text style={scheme === 'dark' ? styles.darklatestDate : styles.latestDate}>{displaytime(talk.latestMessage.createdAt)}</Text>
                       </View>
                     </View>
                   </TouchableOpacity>

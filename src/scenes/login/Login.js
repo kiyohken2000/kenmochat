@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, StatusBar, Image, TextInput, TouchableOpacity } from 'react-native'
+import { Text, View, StatusBar, Image, TextInput, TouchableOpacity, useColorScheme } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
@@ -9,6 +9,7 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [spinner, setSpinner] = useState(false)
+  const scheme = useColorScheme()
 
   const onFooterLinkPress = () => {
     navigation.navigate('Registration')
@@ -78,7 +79,7 @@ export default function Login({navigation}) {
           <Text style={styles.buttonTitle}>Log in</Text>
         </TouchableOpacity>
         <View style={styles.footerView}>
-          <Text style={styles.footerText}>Don't have an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Sign up</Text></Text>
+          <Text style={scheme === 'dark' ? styles.darkfooterText : styles.footerText}>Don't have an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Sign up</Text></Text>
         </View>
       </KeyboardAwareScrollView>
       <Spinner

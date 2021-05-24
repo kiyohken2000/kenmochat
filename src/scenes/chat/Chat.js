@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, StatusBar } from 'react-native'
-import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps } from 'react-native-gifted-chat'
+import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, StatusBar, useColorScheme } from 'react-native'
+import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
 import styles from './styles'
 import { IconButton } from 'react-native-paper'
 import { firebase } from '../../firebase/config'
@@ -21,6 +21,7 @@ export default function Chat({route, navigation }) {
   const [image, setImage] = useState('')
   const [dialog, setDialog] = useState(false)
   const [talking, setTalking] = useState(false)
+  const scheme = useColorScheme()
 
   async function handleSend(messages) {
     const text = messages[0].text;
@@ -206,6 +207,12 @@ export default function Chat({route, navigation }) {
     )
   }
 
+  function renderInputToolbar(props) {
+    return (
+      <InputToolbar {...props} containerStyle={scheme === 'dark' ? styles.darkinputToolbar : styles.inputToolbar}/>
+    )
+  }
+
   function delMessage(context, message) {
     const options = ['Delete Message', 'Copy Text', 'Speech', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
@@ -277,7 +284,7 @@ export default function Chat({route, navigation }) {
       <View style={styles.header}>
         <View style={styles.headertext}>
           <TextInput
-            style={styles.title}
+            style={scheme === 'dark' ? styles.darktitle : styles.title}
             placeholderTextColor="black"
             onChangeText={(text) => setTitle(text)}
             value={title}
@@ -301,6 +308,8 @@ export default function Chat({route, navigation }) {
         renderUsernameOnMessage={true}
         renderActions={renderActions}
         onLongPress={delMessage}
+        renderInputToolbar={renderInputToolbar}
+        textInputStyle={scheme === 'dark' ? styles.darktextInputStyle: styles.textInputStyle}
         placeholder='Type your message here...'
       />
       {talking?

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, useColorScheme } from 'react-native'
 import styles from './styles'
-import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps } from 'react-native-gifted-chat'
+import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
 import { firebase } from '../../firebase/config'
 import { IconButton } from 'react-native-paper'
 import { Divider, Avatar } from 'react-native-elements'
@@ -24,6 +24,7 @@ export default function Talk({ route, navigation }) {
   const [dialog, setDialog] = useState(false)
   const [talking, setTalking] = useState(false)
   const contactArray = Object.values(myProfile.contact?myProfile.contact:['example@example.com'])
+  const scheme = useColorScheme()
 
   async function handleSend(messages) {
     const text = messages[0].text;
@@ -210,6 +211,12 @@ export default function Talk({ route, navigation }) {
     )
   }
 
+  function renderInputToolbar(props) {
+    return (
+      <InputToolbar {...props} containerStyle={scheme === 'dark' ? styles.darkinputToolbar : styles.inputToolbar}/>
+    )
+  }
+
   function delMessage(context, message) {
     const options = ['Delete Message', 'Copy Text', 'Speech', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
@@ -332,7 +339,7 @@ export default function Talk({ route, navigation }) {
       <View style={styles.header}>
         <View style={styles.headertext}>
           <TextInput
-            style={styles.title}
+            style={scheme === 'dark' ? styles.darktitle : styles.title}
             placeholderTextColor="black"
             onChangeText={(text) => setTitle(text)}
             value={title}
@@ -357,6 +364,8 @@ export default function Talk({ route, navigation }) {
         renderUsernameOnMessage={true}
         renderActions={renderActions}
         onLongPress={delMessage}
+        renderInputToolbar={renderInputToolbar}
+        textInputStyle={scheme === 'dark' ? styles.darktextInputStyle: styles.textInputStyle}
         placeholder='Type your message here...'
       />
       {talking?
@@ -371,10 +380,10 @@ export default function Talk({ route, navigation }) {
         animationType={"slide" || "fade"}
         presentationStyle={"fullScreen" || "pageSheet" || "formSheet" || "overFullScreen"}
       >
-        <View style={styles.modalcontainer}>
+        <View style={scheme === 'dark' ? styles.darkmodalcontainer : styles.modalcontainer}>
           <View style={{ flex: 1, width: '100%' }}>
             <View style={styles.modaltitle}>
-              <Text style={styles.title}>Tap to invite users</Text>
+              <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>Tap to invite users</Text>
             </View>
             <Divider />
             <ScrollView>
@@ -393,8 +402,8 @@ export default function Talk({ route, navigation }) {
                             />
                           </View>
                           <View style={styles.userinfo}>
-                            <Text style={styles.title}>{user.fullName}</Text>
-                            <Text style={styles.field}>{user.email}</Text>
+                            <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>{user.fullName}</Text>
+                            <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>{user.email}</Text>
                           </View>
                         </View>
                       </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, StatusBar, TextInput, TouchableOpacity } from 'react-native'
+import { Text, View, StatusBar, TextInput, TouchableOpacity, useColorScheme } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Avatar } from 'react-native-elements'
@@ -14,6 +14,7 @@ export default function Detail({ route, navigation }) {
   const [progress, setProgress] = useState('')
   const [avatar, setAvatar] = useState('https://firebasestorage.googleapis.com/v0/b/kenmochat.appspot.com/o/avatar%2Ficon.png?alt=media&token=8af3fe41-ad46-45a3-ab5e-7594a98a7c84')
   const userData = route.params.userData
+  const scheme = useColorScheme()
 
   useEffect(() => {
     setAvatar(userData.avatar)
@@ -84,10 +85,10 @@ export default function Detail({ route, navigation }) {
               source={{ uri: avatar }}
             />
           </View>
-          <Text style={{ alignSelf: 'center' }}>{progress}</Text>
-          <Text style={styles.field}>Name:</Text>
+          <Text style={scheme === 'dark' ? styles.darkprogress : styles.progress}>{progress}</Text>
+          <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>Name:</Text>
           <TextInput
-            style={styles.input}
+            style={scheme === 'dark' ? styles.darkinput : styles.input}
             placeholder={fullName}
             placeholderTextColor="#aaaaaa"
             onChangeText={(text) => setFullName(text)}
@@ -95,8 +96,8 @@ export default function Detail({ route, navigation }) {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
-          <Text style={styles.field}>Mail:</Text>
-          <Text style={styles.title}>{userData.email}</Text>
+          <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>Mail:</Text>
+          <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>{userData.email}</Text>
           <TouchableOpacity style={styles.button} onPress={profileUpdate}>
             <Text style={styles.buttonText}>Update</Text>
           </TouchableOpacity>

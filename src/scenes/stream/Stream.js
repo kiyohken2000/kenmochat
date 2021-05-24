@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
+import { Text, View, TouchableOpacity, ScrollView, StatusBar, useColorScheme } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
@@ -8,6 +8,7 @@ import { Divider, Avatar } from 'react-native-elements'
 export default function Stream( props ) {
   const userData = props.extraData
   const [threads, setThreads] = useState([]);
+  const scheme = useColorScheme()
 
   const addRoom = () => {
     const talkRef = firebase.firestore().collection('THREADS').doc()
@@ -72,11 +73,11 @@ export default function Stream( props ) {
                         />
                       </View>
                       <View style={{ flex: 1, width: '100%' }}>
-                        <Text style={styles.title} numberOfLines={1}>{talk.name}</Text>
-                        <Text style={styles.latestMessage} numberOfLines={1}>{talk.latestMessage.text}</Text>
+                        <Text style={scheme === 'dark' ? styles.darktitle : styles.title} numberOfLines={1}>{talk.name}</Text>
+                        <Text style={scheme === 'dark' ? styles.darklatestMessage : styles.latestMessage} numberOfLines={1}>{talk.latestMessage.text}</Text>
                         <View style={styles.datecontainer}>
-                          {talk.id === 'WIMi5WBba4N2XNtK5o5g'?<Text>🤖bot room🤖</Text>:null}
-                          <Text style={styles.latestDate}>{displaytime(talk.latestMessage.createdAt)}</Text>
+                          {talk.id === 'WIMi5WBba4N2XNtK5o5g'?<Text style={scheme === 'dark' ? styles.darkbot : styles.bot}>🤖bot room🤖</Text>:null}
+                          <Text style={scheme === 'dark' ? styles.darklatestDate : styles.latestDate}>{displaytime(talk.latestMessage.createdAt)}</Text>
                         </View>
                       </View>
                     </View>

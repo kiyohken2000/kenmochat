@@ -20,6 +20,8 @@ import Participant from '../../scenes/participant'
 import Stream from '../../scenes/stream'
 import Chat from '../../scenes/chat'
 import * as Notifications from 'expo-notifications'
+import { AppearanceProvider, useColorScheme } from 'react-native-appearance'
+import { DefaultTheme, DarkTheme } from '@react-navigation/native'
 // import DrawerNavigator from './drawer'
 import {decode, encode} from 'base-64'
 if (!global.btoa) { global.btoa = encode }
@@ -37,6 +39,7 @@ const navigationProps = {
 export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
+  const scheme = useColorScheme()
 
   useEffect(() => {
     const usersRef = firebase.firestore().collection('users');
@@ -206,12 +209,14 @@ export default function App() {
   )
 
   return(
-    <NavigationContainer>
-      { user ? (
-        <TabNavigator/>
-        ) : (
-        <LoginNavigator/>
-      )}
-    </NavigationContainer>
+    <AppearanceProvider>
+      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+        { user ? (
+          <TabNavigator/>
+          ) : (
+          <LoginNavigator/>
+        )}
+      </NavigationContainer>
+    </AppearanceProvider>
   )
 }

@@ -11,9 +11,20 @@ export default StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center'
   },
+  darktitle: {
+    fontSize: 24,
+    marginBottom: 20,
+    textAlign: 'center',
+    color: 'white',
+  },
   field: {
     fontSize: 15,
     textAlign: 'center'
+  },
+  darkfield: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'white',
   },
   avatar: {
     margin: 30,

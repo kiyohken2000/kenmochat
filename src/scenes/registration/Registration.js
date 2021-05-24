@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View, Linking, StatusBar } from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View, Linking, StatusBar, useColorScheme } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
@@ -11,6 +11,7 @@ export default function Registration({navigation}) {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [spinner, setSpinner] = useState(false)
+  const scheme = useColorScheme()
 
   const onFooterLinkPress = () => {
     navigation.navigate('Login')
@@ -109,10 +110,10 @@ export default function Registration({navigation}) {
           <Text style={styles.buttonTitle}>Agree and Create account</Text>
         </TouchableOpacity>
         <View style={styles.footerView}>
-          <Text style={styles.footerText}>Already got an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
+          <Text style={scheme === 'dark' ? styles.darkfooterText : styles.footerText}>Already got an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
         </View>
         <Text style={styles.link} onPress={ ()=>{ Linking.openURL('https://pinepro.ml')}}>Require agree EULA</Text>
-        <Text style={styles.contact}>pinepro.staff@gmail.com</Text>
+        <Text style={scheme === 'dark' ? styles.darkcontact : styles.contact}>pinepro.staff@gmail.com</Text>
       </KeyboardAwareScrollView>
       <Spinner
         visible={spinner}

@@ -12,10 +12,23 @@ export default StyleSheet.create({
     marginBottom: 5,
     marginLeft: 10,
   },
+  darktitle: {
+    fontSize: 24,
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 10,
+    color: 'white',
+  },
   field: {
     fontSize: 15,
     marginBottom: 5,
     marginLeft: 10,
+  },
+  darkfield: {
+    fontSize: 15,
+    marginBottom: 5,
+    marginLeft: 10,
+    color: 'white',
   },
   latestMessage: {
     fontSize: 15,
@@ -29,6 +42,13 @@ export default StyleSheet.create({
     marginLeft: 10,
     opacity: 0.4,
     alignSelf: 'flex-end',
+  },
+  darklatestDate: {
+    fontSize: 15,
+    marginLeft: 10,
+    opacity: 0.4,
+    alignSelf: 'flex-end',
+    color: 'white',
   },
   button: {
     backgroundColor: '#788eec',

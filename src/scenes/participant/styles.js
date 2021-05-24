@@ -20,6 +20,17 @@ export default StyleSheet.create({
     fontSize: 15,
     textAlign: 'center'
   },
+  darktitle: {
+    fontSize: 24,
+    marginBottom: 20,
+    textAlign: 'center',
+    color: 'white',
+  },
+  darkfield: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'white',
+  },
   avatar: {
     margin: 30,
     alignSelf: "center",

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, StatusBar, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, StatusBar, TouchableOpacity, ScrollView, useColorScheme } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Avatar } from 'react-native-elements'
@@ -7,6 +7,7 @@ import { Avatar } from 'react-native-elements'
 export default function Info({ route, navigation }) {
   const userInfo = route.params.userInfo
   const myProfile = route.params.myProfile
+  const scheme = useColorScheme()
 
   const removeContact = () => {
     const userRef2 = firebase.firestore().collection('users2').doc(myProfile.email)
@@ -77,10 +78,10 @@ export default function Info({ route, navigation }) {
               source={{ uri: userInfo.avatar }}
             />
           </View>
-          <Text style={styles.field}>Name:</Text>
-          <Text style={styles.title}>{userInfo.fullName}</Text>
-          <Text style={styles.field}>Mail:</Text>
-          <Text style={styles.title}>{userInfo.email}</Text>
+          <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>Name:</Text>
+          <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>{userInfo.fullName}</Text>
+          <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>Mail:</Text>
+          <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>{userInfo.email}</Text>
           <TouchableOpacity style={styles.button} onPress={talkStart}>
             <Text style={styles.buttonText}>Talk start</Text>
           </TouchableOpacity>

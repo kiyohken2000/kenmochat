@@ -21,6 +21,11 @@ export default StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
+  darktitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+  },
   exit: {
     backgroundColor: '#788eec',
     marginRight: 10,
@@ -89,5 +94,16 @@ export default StyleSheet.create({
     bottom: 60,
     right: 30,
     justifyContent: "center",
+  },
+  inputToolbar: {
+  },
+  darkinputToolbar: {
+    backgroundColor: 'black',
+    color: 'white'
+  },
+  textInputStyle: {
+  },
+  darktextInputStyle: {
+    color: 'white'
   },
 })

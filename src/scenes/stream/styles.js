@@ -17,6 +17,25 @@ export default StyleSheet.create({
     marginBottom: 5,
     marginLeft: 10,
   },
+  darktitle: {
+    fontSize: 24,
+    marginTop: 5,
+    marginBottom: 5,
+    marginLeft: 10,
+    color: 'white',
+  },
+  darkfield: {
+    fontSize: 15,
+    marginBottom: 5,
+    marginLeft: 10,
+    color: 'white',
+  },
+  bot: {
+    color: 'black',
+  },
+  darkbot: {
+    color: 'white',
+  },
   latestMessage: {
     fontSize: 15,
     marginBottom: 5,
@@ -24,11 +43,26 @@ export default StyleSheet.create({
     opacity: 0.4,
     alignSelf: 'flex-start',
   },
+  darklatestMessage: {
+    fontSize: 15,
+    marginBottom: 5,
+    marginLeft: 10,
+    opacity: 0.4,
+    alignSelf: 'flex-start',
+    color: 'white',
+  },
   latestDate: {
     fontSize: 15,
     marginLeft: 10,
     opacity: 0.4,
     alignSelf: 'flex-end',
+  },
+  darklatestDate: {
+    fontSize: 15,
+    marginLeft: 10,
+    opacity: 0.4,
+    alignSelf: 'flex-end',
+    color: 'white',
   },
   datecontainer: {
     flexDirection:'row',

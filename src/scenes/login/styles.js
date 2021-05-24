@@ -50,6 +50,10 @@ export default StyleSheet.create({
     fontSize: 16,
     color: '#2e2e2d'
   },
+  darkfooterText: {
+    fontSize: 16,
+    color: 'white',
+  },
   footerLink: {
     color: "#788eec",
     fontWeight: "bold",

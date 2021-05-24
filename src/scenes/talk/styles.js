@@ -21,6 +21,20 @@ export default StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
+  darktitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  field: {
+    fontSize: 15,
+    marginBottom: 5,
+  },
+  darkfield: {
+    fontSize: 15,
+    marginBottom: 5,
+    color: 'white',
+  },
   exit: {
     backgroundColor: '#788eec',
     marginRight: 10,
@@ -68,6 +82,10 @@ export default StyleSheet.create({
   modalcontainer: {
     flex: 1,
   },
+  darkmodalcontainer: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
   footerContainer: {
     marginBottom: 70
   },
@@ -89,5 +107,15 @@ export default StyleSheet.create({
     bottom: 60,
     right: 30,
     justifyContent: "center",
+  },
+  inputToolbar: {
+  },
+  darkinputToolbar: {
+    backgroundColor: 'black'
+  },
+  textInputStyle: {
+  },
+  darktextInputStyle: {
+    color: 'white'
   },
 })

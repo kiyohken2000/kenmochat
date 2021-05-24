@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Text, View, TextInput, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity, ScrollView, StatusBar, useColorScheme } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Divider } from 'react-native-elements'
@@ -10,6 +10,7 @@ export default function Contact(props) {
   const [theArray, setTheArray] = useState([])
   const userData = props.extraData
   const contactArray = Object.values(userData.contact?userData.contact:['example@example.com'])
+  const scheme = useColorScheme()
 
   useEffect(() => {
     for (const elem of contactArray) {
@@ -53,7 +54,7 @@ export default function Contact(props) {
       <View style={{ flex: 1, width: '100%' }}>
         <ScrollView>
         <TextInput
-          style={styles.input}
+          style={scheme === 'dark' ? styles.darkinput : styles.input}
           placeholder='Add user by email'
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setEmail(text)}
@@ -85,8 +86,8 @@ export default function Contact(props) {
                       />
                     </View>
                     <View>
-                      <Text style={styles.title}>{user.fullName}</Text>
-                      <Text style={styles.field}>{user.email}</Text>
+                      <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>{user.fullName}</Text>
+                      <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>{user.email}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>

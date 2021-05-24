@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, StatusBar, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, StatusBar, TouchableOpacity, ScrollView, useColorScheme } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Avatar } from 'react-native-elements'
@@ -7,6 +7,7 @@ import { Avatar } from 'react-native-elements'
 export default function User({ route, navigation }) {
   const userData = route.params.user
   const myProfile = route.params.myProfile
+  const scheme = useColorScheme()
 
   const addContact = () => {
     const userRef2 = firebase.firestore().collection('users2').doc(myProfile.email)
@@ -41,10 +42,10 @@ export default function User({ route, navigation }) {
               source={{ uri: userData.avatar }}
             />
           </View>
-          <Text style={styles.field}>Name:</Text>
-          <Text style={styles.title}>{userData.fullName}</Text>
-          <Text style={styles.field}>Mail:</Text>
-          <Text style={styles.title}>{userData.email}</Text>
+          <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>Name:</Text>
+          <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>{userData.fullName}</Text>
+          <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>Mail:</Text>
+          <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>{userData.email}</Text>
           <TouchableOpacity style={styles.button} onPress={addContact}>
             <Text style={styles.buttonText}>Add Contact</Text>
           </TouchableOpacity>

@@ -13,11 +13,29 @@ export default StyleSheet.create({
   },
   field: {
     fontSize: 15,
-    textAlign: 'center'
+    textAlign: 'center',
+  },
+  darktitle: {
+    fontSize: 24,
+    marginBottom: 20,
+    textAlign: 'center',
+    color: 'white',
+  },
+  darkfield: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'white',
   },
   avatar: {
     margin: 30,
     alignSelf: "center",
+  },
+  progress: {
+    alignSelf: 'center',
+  },
+  darkprogress: {
+    alignSelf: 'center',
+    color: 'white',
   },
   input: {
     height: 48,
@@ -29,6 +47,18 @@ export default StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 16
+  },
+  darkinput: {
+    height: 48,
+    borderRadius: 5,
+    overflow: 'hidden',
+    backgroundColor: 'white',
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 16,
+    backgroundColor: '#808080'
   },
   button: {
     backgroundColor: '#788eec',
