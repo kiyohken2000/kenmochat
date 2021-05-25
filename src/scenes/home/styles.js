@@ -37,6 +37,14 @@ export default StyleSheet.create({
     opacity: 0.4,
     alignSelf: 'flex-start',
   },
+  darklatestMessage: {
+    fontSize: 15,
+    marginBottom: 5,
+    marginLeft: 10,
+    opacity: 0.4,
+    alignSelf: 'flex-start',
+    color: 'white',
+  },
   latestDate: {
     fontSize: 15,
     marginLeft: 10,

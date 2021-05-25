@@ -34,6 +34,7 @@ export default StyleSheet.create({
     fontSize: 15,
     marginBottom: 5,
     color: 'white',
+    opacity: 0.4,
   },
   exit: {
     backgroundColor: '#788eec',

@@ -29,6 +29,7 @@ export default StyleSheet.create({
     marginBottom: 5,
     marginLeft: 10,
     color: 'white',
+    opacity: 0.4,
   },
   input: {
     height: 48,

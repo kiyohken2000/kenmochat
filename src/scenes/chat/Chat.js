@@ -123,10 +123,13 @@ export default function Chat({route, navigation }) {
             backgroundColor: '#6646ee'
           },
           left: {
-            backgroundColor: '#e6e6fa'
+            backgroundColor: scheme === 'dark' ? '#262626':'#e6e6fa'
           }
         }}
         textStyle={{
+          left: {
+            color: scheme === 'dark' ? 'white':'#fff'
+          },
           right: {
             color: '#fff'
           },

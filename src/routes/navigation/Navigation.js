@@ -6,7 +6,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import FontIcon from 'react-native-vector-icons/FontAwesome5'
-import Icon from 'react-native-vector-icons/FontAwesome5'
 import Login from '../../scenes/login'
 import Registration from '../../scenes/registration'
 import Home from '../../scenes/home'
@@ -20,7 +19,7 @@ import Participant from '../../scenes/participant'
 import Stream from '../../scenes/stream'
 import Chat from '../../scenes/chat'
 import * as Notifications from 'expo-notifications'
-import { AppearanceProvider, useColorScheme } from 'react-native-appearance'
+import { useColorScheme } from 'react-native'
 import { DefaultTheme, DarkTheme } from '@react-navigation/native'
 // import DrawerNavigator from './drawer'
 import {decode, encode} from 'base-64'
@@ -30,16 +29,18 @@ if (!global.atob) { global.atob = decode }
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
-const navigationProps = {
-  headerTintColor: 'white',
-  headerStyle: { backgroundColor: colors.darkPurple },
-  headerTitleStyle: { fontSize: 18 },
-}
-
 export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
   const scheme = useColorScheme()
+
+  const navigationProps = {
+    headerTintColor: 'white',
+    headerStyle: { 
+      backgroundColor: scheme === 'dark' ? colors.dark : colors.darkPurple
+    },
+    headerTitleStyle: { fontSize: 18 },
+  }
 
   useEffect(() => {
     const usersRef = firebase.firestore().collection('users');
@@ -209,14 +210,12 @@ export default function App() {
   )
 
   return(
-    <AppearanceProvider>
-      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-        { user ? (
-          <TabNavigator/>
-          ) : (
-          <LoginNavigator/>
-        )}
-      </NavigationContainer>
-    </AppearanceProvider>
+    <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+      { user ? (
+        <TabNavigator/>
+        ) : (
+        <LoginNavigator/>
+      )}
+    </NavigationContainer>
   )
 }
