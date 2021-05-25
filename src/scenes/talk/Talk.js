@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, useColorScheme } from 'react-native'
+import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, Image, useColorScheme } from 'react-native'
 import styles from './styles'
 import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
 import { firebase } from '../../firebase/config'
@@ -426,6 +426,10 @@ export default function Talk({ route, navigation }) {
       </Modal>
       <Dialog.Container visible={dialog}>
         <Dialog.Title>Send image?</Dialog.Title>
+        <Image
+          style={styles.logo}
+          source={{uri: image}}
+        />
         <Dialog.Button label="OK" bold={true} onPress={() => sendImage()} />
         <Dialog.Button label="Cancel" onPress={() => setDialog(false)} />
       </Dialog.Container>

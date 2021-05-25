@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, StatusBar, useColorScheme } from 'react-native'
+import { Text, View, Modal, Image, TouchableOpacity, TextInput, StatusBar, useColorScheme } from 'react-native'
 import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
 import styles from './styles'
 import { IconButton } from 'react-native-paper'
@@ -323,6 +323,10 @@ export default function Chat({route, navigation }) {
         </View>:null}
       <Dialog.Container visible={dialog}>
         <Dialog.Title>Send image?</Dialog.Title>
+        <Image
+          style={styles.logo}
+          source={{uri: image}}
+        />
         <Dialog.Button label="OK" bold={true} onPress={() => sendImage()} />
         <Dialog.Button label="Cancel" onPress={() => setDialog(false)} />
       </Dialog.Container>

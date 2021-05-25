@@ -119,4 +119,9 @@ export default StyleSheet.create({
   darktextInputStyle: {
     color: 'white'
   },
+  logo: {
+    height: 180,
+    width: 180,
+    alignSelf: "center",
+  },
 })
