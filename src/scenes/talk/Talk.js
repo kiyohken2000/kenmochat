@@ -132,7 +132,7 @@ export default function Talk({ route, navigation }) {
         }}
         textStyle={{
           left: {
-            color: scheme === 'dark' ? 'white':'#fff'
+            color: scheme === 'dark' ? 'white':'#000000'
           },
           right: {
             color: '#fff'
