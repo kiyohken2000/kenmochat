@@ -76,7 +76,7 @@ export default function Stream( props ) {
                         <Text style={scheme === 'dark' ? styles.darktitle : styles.title} numberOfLines={1}>{talk.name}</Text>
                         <Text style={scheme === 'dark' ? styles.darklatestMessage : styles.latestMessage} numberOfLines={1}>{talk.latestMessage.text}</Text>
                         <View style={styles.datecontainer}>
-                          {talk.id === 'WIMi5WBba4N2XNtK5o5g'?<Text style={scheme === 'dark' ? styles.darkbot : styles.bot}>🤖bot room🤖</Text>:null}
+                          {talk.id === 'ABhgiSmURLR0xCtPR5C5'?<Text style={scheme === 'dark' ? styles.darkbot : styles.bot}>🤖bot room🤖</Text>:null}
                           <Text style={scheme === 'dark' ? styles.darklatestDate : styles.latestDate}>{displaytime(talk.latestMessage.createdAt)}</Text>
                         </View>
                       </View>
