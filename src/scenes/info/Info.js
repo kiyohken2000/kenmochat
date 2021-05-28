@@ -68,8 +68,8 @@ export default function Info({ route, navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <ScrollView style={styles.main}>
-        <View>
+      <ScrollView style={{ flex: 1, width: '100%' }}>
+        <View style={styles.main}>
           <View style={styles.avatar}>
             <Avatar
               size="xlarge"

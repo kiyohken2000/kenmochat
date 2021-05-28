@@ -6,6 +6,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  main: {
+    flex: 1,
+    width: '100%',
+    marginBottom: 25,
+  },
   title: {
     fontSize: 24,
     marginBottom: 20,
@@ -40,6 +45,16 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
   },
+  sbutton: {
+    backgroundColor: '#b0c4de',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: 'center',
+  },
   buttonText: {
     color: 'white',
     fontSize: 16
@@ -54,5 +69,9 @@ export default StyleSheet.create({
     color: "#788eec",
     fontWeight: "bold",
     fontSize: 16
+  },
+  qr: {
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 })

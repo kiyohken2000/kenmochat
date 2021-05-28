@@ -4,6 +4,7 @@ import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Restart } from 'fiction-expo-restart'
 import { Avatar } from 'react-native-elements'
+import { QRCode } from 'react-native-custom-qr-codes-expo'
 
 export default function Profile(props) {
   const userData = props.extraData
@@ -17,12 +18,16 @@ export default function Profile(props) {
     firebase.auth().signOut()
     Restart()
   }
+
+  const goScan = () => {
+    props.navigation.navigate('Scan', { userData: userData })
+  }
   
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       <ScrollView style={{ flex: 1, width: '100%' }}>
-        <View>
+        <View style={styles.main}>
           <View style={styles.avatar}>
             <Avatar
               size="xlarge"
@@ -35,11 +40,22 @@ export default function Profile(props) {
           <Text style={scheme === 'dark' ? styles.darktitle :styles.title}>{userData.fullName}</Text>
           <Text style={scheme === 'dark' ? styles.darkfield :styles.field}>Mail:</Text>
           <Text style={scheme === 'dark' ? styles.darktitle :styles.title}>{userData.email}</Text>
+          <TouchableOpacity style={styles.sbutton} onPress={goScan}>
+            <Text style={styles.buttonText}>Scan</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={goDetail}>
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
           <View style={styles.footerView}>
             <Text onPress={signOut} style={styles.footerLink}>Sign out</Text>
+          </View>
+          <View style={styles.qr}>
+            <QRCode
+              content={userData.email}
+              logoSize={50}
+              color={scheme === 'dark' ? 'white' : 'black'}
+              size={200}
+            />
           </View>
         </View>
       </ScrollView>

@@ -11,6 +11,7 @@ import Registration from '../../scenes/registration'
 import Home from '../../scenes/home'
 import Profile from '../../scenes/profile'
 import Detail from '../../scenes/details'
+import Scan from '../../scenes/scan'
 import Contact from '../../scenes/contact'
 import User from '../../scenes/user'
 import Info from '../../scenes/info'
@@ -119,6 +120,12 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="Detail">
           {props => <Detail {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="Scan">
+          {props => <Scan {...props} extraData={user} />}
+        </Stack.Screen>
+        <Stack.Screen name="User">
+          {props => <User {...props} extraData={user} />}
         </Stack.Screen>
       </Stack.Navigator>
     )

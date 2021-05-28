@@ -7506,6 +7506,14 @@ expo-asset@~8.3.1:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-barcode-scanner@~10.1.2:
+  version "10.1.2"
+  resolved "https://registry.yarnpkg.com/expo-barcode-scanner/-/expo-barcode-scanner-10.1.2.tgz#51e3d176124862273073bbf8fb542534cb2f1e27"
+  integrity sha512-MNu25UZsXr+O7GhV9BV6Mm2XDBRhtwHp1XPSRUB0hmAAQXs3672ELt/Irm4UGcET4RFprgH448Utt/2Fbi8Qaw==
+  dependencies:
+    "@expo/config-plugins" "^1.0.18"
+    unimodules-permissions-interface "~6.1.0"
+
 expo-cli@^3.20.0:
   version "3.28.6"
   resolved "https://registry.yarnpkg.com/expo-cli/-/expo-cli-3.28.6.tgz#e271d99665c46e5f98e1308d987a0fd9228d0ed0"
@@ -14171,6 +14179,13 @@ react-native-communications@^2.2.1:
   resolved "https://registry.yarnpkg.com/react-native-communications/-/react-native-communications-2.2.1.tgz#7883b56b20a002eeb790c113f8616ea8692ca795"
   integrity sha1-eIO1ayCgAu63kMET+GFuqGksp5U=
 
+react-native-custom-qr-codes-expo@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-custom-qr-codes-expo/-/react-native-custom-qr-codes-expo-2.2.0.tgz#0286713160d9db13c82718ba3c4786ac7dfeb076"
+  integrity sha512-NWZqkdyZfdYlZcCqejshWRJJik7MVl+9r8AvsPPRxXsKfdEaqalQ2sb78Zyh3BELnyqr3ptP7CSxjtXiN77SjA==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-dialog@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/react-native-dialog/-/react-native-dialog-6.2.0.tgz#d84123d6b5a3485891ffd6db9f571502f76f84cb"
@@ -14339,10 +14354,10 @@ react-native-svg-transformer@^0.14.3:
     path-dirname "^1.0.2"
     semver "^5.6.0"
 
-react-native-svg@12.1.0:
-  version "12.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-12.1.0.tgz#acfe48c35cd5fca3d5fd767abae0560c36cfc03d"
-  integrity sha512-1g9qBRci7man8QsHoXn6tP3DhCDiypGgc6+AOWq+Sy+PmP6yiyf8VmvKuoqrPam/tf5x+ZaBT2KI0gl7bptZ7w==
+react-native-svg@^12.1.1:
+  version "12.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-12.1.1.tgz#5f292410b8bcc07bbc52b2da7ceb22caf5bcaaee"
+  integrity sha512-NIAJ8jCnXGCqGWXkkJ1GTzO4a3Md5at5sagYV8Vh4MXYnL4z5Rh428Wahjhh+LIjx40EE5xM5YtwyJBqOIba2Q==
   dependencies:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
