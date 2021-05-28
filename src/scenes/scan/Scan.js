@@ -25,8 +25,8 @@ export default function Scan({ route, navigation }) {
       setScanned(false)
       navigation.navigate('User', { user: userProfile, myProfile: userData })
     }).catch((error) => {
-        console.log("Error getting document:", error);
-        setScanned(false)
+      console.log("Error getting document:", error);
+      setScanned(false)
     });
   };
 
