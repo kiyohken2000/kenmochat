@@ -52,7 +52,6 @@ export default function Profile(props) {
           <View style={styles.qr}>
             <QRCode
               content={userData.email}
-              logoSize={50}
               color={scheme === 'dark' ? 'white' : 'black'}
               size={200}
             />
