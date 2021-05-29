@@ -37,9 +37,9 @@ export default function Profile(props) {
             />
           </View>
           <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>Name:</Text>
-          <Text style={scheme === 'dark' ? styles.darktitle :styles.title}>{userData.fullName}</Text>
-          <Text style={scheme === 'dark' ? styles.darkfield :styles.field}>Mail:</Text>
-          <Text style={scheme === 'dark' ? styles.darktitle :styles.title}>{userData.email}</Text>
+          <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>{userData.fullName}</Text>
+          <Text style={scheme === 'dark' ? styles.darkfield : styles.field}>Mail:</Text>
+          <Text style={scheme === 'dark' ? styles.darktitle : styles.title}>{userData.email}</Text>
           <TouchableOpacity style={styles.sbutton} onPress={goScan}>
             <Text style={styles.buttonText}>Scan</Text>
           </TouchableOpacity>
