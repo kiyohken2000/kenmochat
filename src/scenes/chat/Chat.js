@@ -6,6 +6,7 @@ import { IconButton } from 'react-native-paper'
 import { firebase } from '../../firebase/config'
 import { Divider, Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker'
+import * as ImageManipulator from 'expo-image-manipulator'
 import * as Speech from 'expo-speech'
 import Clipboard from 'expo-clipboard'
 import Constants from 'expo-constants'
@@ -54,7 +55,7 @@ export default function Chat({route, navigation }) {
   }
 
   useEffect(() => {
-    firebase.firestore()
+    const titleListener = firebase.firestore()
       .collection('THREADS')
       .doc(talkData.id)
       .onSnapshot(function(document) {
@@ -62,6 +63,7 @@ export default function Chat({route, navigation }) {
         const title = data.name
         setTitle(title)
       })
+    return () => titleListener()
   }, []);
 
   useEffect(() => {
@@ -149,7 +151,16 @@ export default function Chat({route, navigation }) {
       }
       const result = await ImagePicker.launchImageLibraryAsync();
         if (!result.cancelled) {
-          const localUri = await fetch(result.uri);
+          const actions = [];
+          actions.push({ resize: { width: 1000 } });
+          const manipulatorResult = await ImageManipulator.manipulateAsync(
+            result.uri,
+            actions,
+            {
+              compress: 0.4,
+            },
+          );
+          const localUri = await fetch(manipulatorResult.uri);
           const localBlob = await localUri.blob();
           const filename = myProfile.id + new Date().getTime()
           const storageRef = firebase.storage().ref().child("images/" + filename);

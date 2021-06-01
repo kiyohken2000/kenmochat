@@ -6,6 +6,7 @@ import { firebase } from '../../firebase/config'
 import { IconButton } from 'react-native-paper'
 import { Divider, Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker'
+import * as ImageManipulator from 'expo-image-manipulator'
 import Clipboard from 'expo-clipboard'
 import Constants from 'expo-constants'
 import * as Speech from 'expo-speech'
@@ -154,7 +155,16 @@ export default function Talk({ route, navigation }) {
       }
       const result = await ImagePicker.launchImageLibraryAsync();
         if (!result.cancelled) {
-          const localUri = await fetch(result.uri);
+          const actions = [];
+          actions.push({ resize: { width: 1000 } });
+          const manipulatorResult = await ImageManipulator.manipulateAsync(
+            result.uri,
+            actions,
+            {
+              compress: 0.4,
+            },
+          );
+          const localUri = await fetch(manipulatorResult.uri);
           const localBlob = await localUri.blob();
           const filename = myProfile.id + new Date().getTime()
           const storageRef = firebase.storage().ref().child("images/" + filename);
