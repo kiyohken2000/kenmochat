@@ -58,7 +58,7 @@ export default function Talk({ route, navigation }) {
   }
 
   useEffect(() => {
-    firebase.firestore()
+    const titleListener = firebase.firestore()
       .collection('talk')
       .doc(talkData.id)
       .onSnapshot(function(document) {
@@ -66,6 +66,7 @@ export default function Talk({ route, navigation }) {
         const title = data.name
         setTitle(title)
       })
+    return () => titleListener()
   }, []);
 
   useEffect(() => {
