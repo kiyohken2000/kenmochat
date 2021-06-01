@@ -5,7 +5,6 @@ import { firebase } from '../../firebase/config'
 import { Avatar } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'expo-image-picker'
-import * as Permissions from 'expo-permissions'
 import * as ImageManipulator from 'expo-image-manipulator'
 import Constants from 'expo-constants'
 
@@ -32,7 +31,16 @@ export default function Detail({ route, navigation }) {
       }
       const result = await ImagePicker.launchImageLibraryAsync();
         if (!result.cancelled) {
-          const localUri = await fetch(result.uri);
+          const actions = [];
+          actions.push({ resize: { width: 300 } });
+          const manipulatorResult = await ImageManipulator.manipulateAsync(
+            result.uri,
+            actions,
+            {
+              compress: 0.4,
+            },
+          );
+          const localUri = await fetch(manipulatorResult.uri);
           const localBlob = await localUri.blob();
           const filename = userData.id + new Date().getTime()
           const storageRef = firebase.storage().ref().child("avatar/" + filename);
