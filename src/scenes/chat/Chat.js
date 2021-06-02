@@ -26,32 +26,36 @@ export default function Chat({route, navigation }) {
 
   async function handleSend(messages) {
     const text = messages[0].text;
-    const messageRef = firebase.firestore().collection('THREADS')
-    messageRef
-      .doc(talkData.id)
-      .collection('MESSAGES')
-      .add({
-        text,
-        createdAt: new Date().getTime(),
-        user: {
-          _id: myProfile.id,
-          email: myProfile.email,
-          avatar: myProfile.avatar,
-          name: myProfile.fullName,
-        }
-      });
-    await messageRef
-      .doc(talkData.id)
-      .set(
-        {
-          latestMessage: {
-            text,
+    if (text.length <= 100) {
+      const messageRef = firebase.firestore().collection('THREADS')
+      messageRef
+        .doc(talkData.id)
+        .collection('MESSAGES')
+        .add({
+          text,
+          createdAt: new Date().getTime(),
+          user: {
+            _id: myProfile.id,
+            email: myProfile.email,
             avatar: myProfile.avatar,
-            createdAt: new Date().getTime()
+            name: myProfile.fullName,
           }
-        },
-        { merge: true }
-      );
+        });
+      await messageRef
+        .doc(talkData.id)
+        .set(
+          {
+            latestMessage: {
+              text,
+              avatar: myProfile.avatar,
+              createdAt: new Date().getTime()
+            }
+          },
+          { merge: true }
+        );
+    } else {
+      alert('Message is too long')
+    }
   }
 
   useEffect(() => {
