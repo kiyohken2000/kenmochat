@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const ITEM_WIDTH = Dimensions.get('window').width
 
 export default StyleSheet.create({
   root: {
@@ -99,7 +101,7 @@ export default StyleSheet.create({
   },
   darkinputToolbar: {
     backgroundColor: 'black',
-    color: 'white'
+    color: 'white',
   },
   textInputStyle: {
   },
@@ -111,4 +113,28 @@ export default StyleSheet.create({
     width: 180,
     alignSelf: "center",
   },
+  bottomcontainer: {
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  bottomsheatcontainer: {
+    backgroundColor: '#e6e6fa',
+    height: 450,
+  },
+  darkbottomsheatcontainer: {
+    backgroundColor: '#303030',
+    height: 450,
+  },
+  divide: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20
+  },
+  imageStyle: {
+    width: ITEM_WIDTH / 3,
+    height: ITEM_WIDTH / 3,
+    margin: 1,
+    resizeMode: 'cover',
+  }
 })

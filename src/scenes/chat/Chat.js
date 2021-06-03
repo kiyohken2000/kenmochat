@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Text, View, Modal, Image, TouchableOpacity, TextInput, StatusBar, useColorScheme } from 'react-native'
+import React, { useEffect, useState, useRef } from 'react'
+import { Text, View, Modal, Image, TouchableOpacity, TextInput, StatusBar, useColorScheme, FlatList } from 'react-native'
 import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
 import styles from './styles'
 import { IconButton } from 'react-native-paper'
@@ -12,6 +12,7 @@ import Clipboard from 'expo-clipboard'
 import Constants from 'expo-constants'
 import Dialog from 'react-native-dialog'
 import Icon from 'react-native-vector-icons/Feather'
+import BottomSheet from 'reanimated-bottom-sheet'
 
 export default function Chat({route, navigation }) {
   const myProfile = route.params.myProfile
@@ -23,10 +24,11 @@ export default function Chat({route, navigation }) {
   const [dialog, setDialog] = useState(false)
   const [talking, setTalking] = useState(false)
   const scheme = useColorScheme()
+  const sheetRef = useRef(null)
 
   async function handleSend(messages) {
     const text = messages[0].text;
-    if (text.length <= 300) {
+    if (text.length <= 100) {
       const messageRef = firebase.firestore().collection('THREADS')
       messageRef
         .doc(talkData.id)
@@ -296,6 +298,44 @@ export default function Chat({route, navigation }) {
     talkRef.update({ name: title})
   }
 
+  const renderContent = () => (
+    <View style={scheme === 'dark' ? styles.darkbottomsheatcontainer : styles.bottomsheatcontainer}>
+      <Divider style={styles.divide} />
+        <FlatList 
+          data={items}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={3}
+          renderItem={({item}) => (
+            <TouchableOpacity onPress={() => {select(item)}}>
+              <Image
+                source={{ uri: item }}
+                style={styles.imageStyle}
+              />
+            </TouchableOpacity>
+          )}
+        />
+    </View>
+  )
+
+  const select = (url) => (
+    console.log(url)
+  )
+
+  const items = [
+    'https://i.imgur.com/bRlu1TN.jpg',
+    'https://i.imgur.com/cRHbnot.jpg',
+    'https://i.imgur.com/FfMK7eB.jpg',
+    'https://i.imgur.com/BmBUfQ5.jpg',
+    'https://i.imgur.com/SYEKjxd.png',
+    'https://i.imgur.com/zo8pLBI.png',
+    'https://i.imgur.com/kuEOXex.jpeg',
+    'https://i.imgur.com/PfRNxFd.jpeg',
+    'https://i.imgur.com/n12rgmF.jpg',
+    'https://i.imgur.com/kLAfqtN.jpg',
+    'https://i.imgur.com/hi4DZST.jpeg',
+    'https://i.imgur.com/jVlMAHx.jpeg',
+  ];
+
   return (
     <View style={styles.root}>
       <StatusBar barStyle="light-content" />
@@ -336,6 +376,14 @@ export default function Chat({route, navigation }) {
             <Icon name="stop-circle" size={65} color="red"/>
           </TouchableOpacity>
         </View>:null}
+        <View style={{marginBottom: 20}} />
+        <BottomSheet
+          ref={sheetRef}
+          snapPoints={[450, 20]}
+          initialSnap={1}
+          borderRadius={10}
+          renderContent={renderContent}
+        />
       <Dialog.Container visible={dialog}>
         <Dialog.Title>Send image?</Dialog.Title>
         <Image
