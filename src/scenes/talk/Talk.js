@@ -374,7 +374,7 @@ export default function Talk({ route, navigation }) {
     console.log(url)
     setImage(url)
     setDialog(true)
-    sheetRef.current.snapTo(1)
+    sheetRef.current.snapTo(2)
   }
 
   return (
@@ -420,9 +420,9 @@ export default function Talk({ route, navigation }) {
         <View style={{marginBottom: 20}} />
         <BottomSheet
           ref={sheetRef}
-          snapPoints={[450, 20]}
-          initialSnap={1}
-          borderRadius={10}
+          snapPoints={[450, 300, 20]}
+          initialSnap={2}
+          borderRadius={20}
           renderContent={renderContent}
         />
       <Modal

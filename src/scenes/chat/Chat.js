@@ -322,7 +322,7 @@ export default function Chat({route, navigation }) {
     console.log(url)
     setImage(url)
     setDialog(true)
-    sheetRef.current.snapTo(1)
+    sheetRef.current.snapTo(2)
   }
 
   return (
@@ -368,9 +368,9 @@ export default function Chat({route, navigation }) {
         <View style={{marginBottom: 20}} />
         <BottomSheet
           ref={sheetRef}
-          snapPoints={[450, 20]}
-          initialSnap={1}
-          borderRadius={10}
+          snapPoints={[450, 300, 20]}
+          initialSnap={2}
+          borderRadius={20}
           renderContent={renderContent}
         />
       <Dialog.Container visible={dialog}>
