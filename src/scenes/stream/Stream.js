@@ -32,7 +32,7 @@ export default function Stream( props ) {
   useEffect(() => {
     const chatRef = firebase.firestore().collection('THREADS')
       chatRef
-      .orderBy('latestMessage.createdAt', 'desc').limit(50)
+      .orderBy('latestMessage.createdAt', 'desc').limit(20)
       .onSnapshot(querySnapshot => {
         const threads = querySnapshot.docs.map(documentSnapshot => {
           return {

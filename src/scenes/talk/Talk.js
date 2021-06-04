@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, Image, useColorScheme } from 'react-native'
+import React, { useEffect, useState, useRef } from 'react'
+import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, Image, useColorScheme, FlatList } from 'react-native'
 import styles from './styles'
 import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
 import { firebase } from '../../firebase/config'
@@ -12,6 +12,8 @@ import Constants from 'expo-constants'
 import * as Speech from 'expo-speech'
 import Dialog from 'react-native-dialog'
 import Icon from 'react-native-vector-icons/Feather'
+import BottomSheet from 'reanimated-bottom-sheet'
+import { imgur, items } from '../key'
 
 export default function Talk({ route, navigation }) {
   const talkData = route.params.talkData
@@ -26,6 +28,7 @@ export default function Talk({ route, navigation }) {
   const [talking, setTalking] = useState(false)
   const contactArray = Object.values(myProfile.contact?myProfile.contact:['example@example.com'])
   const scheme = useColorScheme()
+  const sheetRef = useRef(null)
 
   async function handleSend(messages) {
     const text = messages[0].text;
@@ -156,12 +159,12 @@ export default function Talk({ route, navigation }) {
       const result = await ImagePicker.launchImageLibraryAsync();
         if (!result.cancelled) {
           const actions = [];
-          actions.push({ resize: { width: 1000 } });
+          actions.push({ resize: { width: 350 } });
           const manipulatorResult = await ImageManipulator.manipulateAsync(
             result.uri,
             actions,
             {
-              compress: 0.4,
+              compress: 0.1,
             },
           );
           const localUri = await fetch(manipulatorResult.uri);
@@ -348,6 +351,32 @@ export default function Talk({ route, navigation }) {
     }
   })
 
+  const renderContent = () => (
+    <View style={scheme === 'dark' ? styles.darkbottomsheatcontainer : styles.bottomsheatcontainer}>
+      <Divider style={styles.divide} />
+        <FlatList 
+          data={items}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={3}
+          renderItem={({item}) => (
+            <TouchableOpacity onPress={() => {select(item)}}>
+              <Image
+                source={{ uri: item }}
+                style={styles.imageStyle}
+              />
+            </TouchableOpacity>
+          )}
+        />
+    </View>
+  )
+
+  function select(url) {
+    console.log(url)
+    setImage(url)
+    setDialog(true)
+    sheetRef.current.snapTo(1)
+  }
+
   return (
     <View style={styles.root}>
       <View style={styles.header}>
@@ -388,6 +417,14 @@ export default function Talk({ route, navigation }) {
             <Icon name="stop-circle" size={65} color="red"/>
           </TouchableOpacity>
         </View>:null}
+        <View style={{marginBottom: 20}} />
+        <BottomSheet
+          ref={sheetRef}
+          snapPoints={[450, 20]}
+          initialSnap={1}
+          borderRadius={10}
+          renderContent={renderContent}
+        />
       <Modal
         visible={modal}
         transparent={false}

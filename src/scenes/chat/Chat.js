@@ -159,12 +159,12 @@ export default function Chat({route, navigation }) {
       const result = await ImagePicker.launchImageLibraryAsync();
         if (!result.cancelled) {
           const actions = [];
-          actions.push({ resize: { width: 1000 } });
+          actions.push({ resize: { width: 350 } });
           const manipulatorResult = await ImageManipulator.manipulateAsync(
             result.uri,
             actions,
             {
-              compress: 0.4,
+              compress: 0.1,
             },
           );
           const localUri = await fetch(manipulatorResult.uri);
@@ -318,9 +318,12 @@ export default function Chat({route, navigation }) {
     </View>
   )
 
-  const select = (url) => (
+  function select(url) {
     console.log(url)
-  )
+    setImage(url)
+    setDialog(true)
+    sheetRef.current.snapTo(1)
+  }
 
   return (
     <View style={styles.root}>

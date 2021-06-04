@@ -4,16 +4,14 @@ export const imgur = {
 }
 
 export const items = [
-  'https://i.imgur.com/bRlu1TN.jpg',
-  'https://i.imgur.com/cRHbnot.jpg',
-  'https://i.imgur.com/FfMK7eB.jpg',
-  'https://i.imgur.com/BmBUfQ5.jpg',
-  'https://i.imgur.com/SYEKjxd.png',
-  'https://i.imgur.com/zo8pLBI.png',
-  'https://i.imgur.com/kuEOXex.jpeg',
-  'https://i.imgur.com/PfRNxFd.jpeg',
-  'https://i.imgur.com/n12rgmF.jpg',
-  'https://i.imgur.com/kLAfqtN.jpg',
-  'https://i.imgur.com/hi4DZST.jpeg',
-  'https://i.imgur.com/jVlMAHx.jpeg',
+  'https://i.imgur.com/H4jdcug.jpg',
+  'https://i.imgur.com/UOLkmLk.jpg',
+  'https://i.imgur.com/rVWlMGJ.jpg',
+  'https://i.imgur.com/2T7wCPS.jpg',
+  'https://i.imgur.com/kbvzayW.jpg',
+  'https://i.imgur.com/WmkMBNa.jpg',
+  'https://i.imgur.com/g9t5CH5.jpg',
+  'https://i.imgur.com/lr6v5YR.jpg',
+  'https://i.imgur.com/cR4UZYk.jpg',
+  'https://i.imgur.com/5aeKc4C.jpg',
 ];
