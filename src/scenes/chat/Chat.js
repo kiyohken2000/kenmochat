@@ -19,6 +19,7 @@ export default function Chat({route, navigation }) {
   const myProfile = route.params.myProfile
   const talkData = route.params.talkData
   const [messages, setMessages] = useState([])
+  const [stamps, setStamps] = useState([])
   const [progress, setProgress] = useState('')
   const [title, setTitle] = useState('')
   const [image, setImage] = useState('')
@@ -73,6 +74,20 @@ export default function Chat({route, navigation }) {
         setTitle(title)
       })
     return () => titleListener()
+  }, []);
+
+  useEffect(() => {
+    const stampListener = firebase.firestore()
+      .collection('stamp')
+      .doc(myProfile.email)
+      .onSnapshot(function(document) {
+        const data = document.data()
+        const d = data.stamp ? data.stamp : ['https://pinepro.ml/static/avatar-780242398e277f267092de9beaa077c9.png']
+        const s = d.reverse()
+        const stamps = s.concat(items)
+        setStamps(stamps)
+      })
+    return () => stampListener()
   }, []);
 
   useEffect(() => {
@@ -351,7 +366,7 @@ export default function Chat({route, navigation }) {
           }
         </View>
         <FlatList 
-          data={items}
+          data={stamps}
           keyExtractor={(item, index) => index.toString()}
           numColumns={3}
           renderItem={({item}) => (
