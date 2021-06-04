@@ -29,7 +29,7 @@ export default function Chat({route, navigation }) {
 
   async function handleSend(messages) {
     const text = messages[0].text;
-    if (text.length <= 100) {
+    if (text.length <= 300) {
       const messageRef = firebase.firestore().collection('THREADS')
       messageRef
         .doc(talkData.id)
