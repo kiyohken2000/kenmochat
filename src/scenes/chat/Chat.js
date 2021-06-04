@@ -13,6 +13,7 @@ import Constants from 'expo-constants'
 import Dialog from 'react-native-dialog'
 import Icon from 'react-native-vector-icons/Feather'
 import BottomSheet from 'reanimated-bottom-sheet'
+import { imgur } from '../key'
 
 export default function Chat({route, navigation }) {
   const myProfile = route.params.myProfile
