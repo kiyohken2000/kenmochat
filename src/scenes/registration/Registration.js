@@ -36,6 +36,10 @@ export default function Registration({navigation}) {
         };
         const usersRef = firebase.firestore().collection('users')
         const usersRef2 = firebase.firestore().collection('users2')
+        const stampRef = firebase.firestore().collection('stamp')
+        stampRef
+          .doc(email)
+          .set({email})
         usersRef2
           .doc(email)
           .set(data)

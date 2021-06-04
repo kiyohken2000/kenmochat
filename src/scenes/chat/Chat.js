@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Text, View, Modal, Image, TouchableOpacity, TextInput, StatusBar, useColorScheme, FlatList } from 'react-native'
+import { Text, View, Modal, Image, TouchableOpacity, TextInput, StatusBar, useColorScheme, FlatList, Dimensions } from 'react-native'
 import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
 import styles from './styles'
 import { IconButton } from 'react-native-paper'
@@ -24,8 +24,10 @@ export default function Chat({route, navigation }) {
   const [image, setImage] = useState('')
   const [dialog, setDialog] = useState(false)
   const [talking, setTalking] = useState(false)
+  const [isUpload, setUpload] = useState(false)
   const scheme = useColorScheme()
   const sheetRef = useRef(null)
+  const height = Dimensions.get('window').height
 
   async function handleSend(messages) {
     const text = messages[0].text;
@@ -192,6 +194,42 @@ export default function Chat({route, navigation }) {
     }
   }
 
+  async function imgurUpload() {
+    try {
+      if (Constants.platform.ios) {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (status !== 'granted') {
+          alert("Permission is required for use.");
+          return;
+        }
+      }
+      const result = await ImagePicker.launchImageLibraryAsync({base64: true});
+        if (!result.cancelled) {
+          const stampRef = firebase.firestore().collection('stamp').doc(myProfile.email)
+          const formdata = new FormData()
+          formdata.append("image", result.base64)
+          setUpload(true)
+          fetch("https://api.imgur.com/3/image/", {
+            method: "post",
+            headers: {
+              Authorization: `Client-ID ${imgur.clientID}`
+            },
+            body: formdata
+          }).then(data => data.json()).then(data => {
+            url = data.data.link
+            console.log(url)
+            stampRef.update({
+              stamp: firebase.firestore.FieldValue.arrayUnion(url)
+            })
+            setUpload(false)
+          })
+        }
+    } catch (e) {
+        console.log('error',e.message);
+        alert("The size may be too much.");
+    }
+  }
+
   function sendImage() {
     const messageRef = firebase.firestore().collection('THREADS')
     messageRef
@@ -302,6 +340,16 @@ export default function Chat({route, navigation }) {
   const renderContent = () => (
     <View style={scheme === 'dark' ? styles.darkbottomsheatcontainer : styles.bottomsheatcontainer}>
       <Divider style={styles.divide} />
+        <View style={styles.uploadcontainer}>
+          {isUpload ?
+            <View style={styles.upload}>
+              <IconButton icon='progress-upload' size={24} color='#32cd32' style={{ alignSelf: 'center', marginTop: 0 }} />
+            </View> :
+            <TouchableOpacity style={styles.upload} onPress={imgurUpload}>
+              <IconButton icon='cloud-upload-outline' size={24} color='#f0f8ff' style={{ alignSelf: 'center', marginTop: 0 }} />
+            </TouchableOpacity>
+          }
+        </View>
         <FlatList 
           data={items}
           keyExtractor={(item, index) => index.toString()}
@@ -368,7 +416,7 @@ export default function Chat({route, navigation }) {
         <View style={{marginBottom: 20}} />
         <BottomSheet
           ref={sheetRef}
-          snapPoints={[450, 300, 20]}
+          snapPoints={[height*0.6, 300, 20]}
           initialSnap={2}
           borderRadius={20}
           renderContent={renderContent}

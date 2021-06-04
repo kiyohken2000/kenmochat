@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const ITEM_WIDTH = Dimensions.get('window').width
+const height = Dimensions.get('window').height
 
 export default StyleSheet.create({
   root: {
@@ -119,11 +120,11 @@ export default StyleSheet.create({
   },
   bottomsheatcontainer: {
     backgroundColor: '#e6e6fa',
-    height: 450,
+    height: height*0.6,
   },
   darkbottomsheatcontainer: {
     backgroundColor: '#303030',
-    height: 450,
+    height: height*0.6,
   },
   divide: {
     marginTop: 10,
@@ -136,5 +137,15 @@ export default StyleSheet.create({
     height: ITEM_WIDTH / 3,
     margin: 1,
     resizeMode: 'cover',
-  }
+  },
+  uploadcontainer: {
+    width: '100%',
+  },
+  upload: {
+    backgroundColor: '#4169e1',
+    marginBottom: 10,
+    borderRadius: 20,
+    marginRight: 40,
+    marginLeft: 40
+  },
 })
