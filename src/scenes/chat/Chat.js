@@ -13,7 +13,7 @@ import Constants from 'expo-constants'
 import Dialog from 'react-native-dialog'
 import Icon from 'react-native-vector-icons/Feather'
 import BottomSheet from 'reanimated-bottom-sheet'
-import { imgur } from '../key'
+import { imgur, items } from '../key'
 
 export default function Chat({route, navigation }) {
   const myProfile = route.params.myProfile
@@ -321,21 +321,6 @@ export default function Chat({route, navigation }) {
   const select = (url) => (
     console.log(url)
   )
-
-  const items = [
-    'https://i.imgur.com/bRlu1TN.jpg',
-    'https://i.imgur.com/cRHbnot.jpg',
-    'https://i.imgur.com/FfMK7eB.jpg',
-    'https://i.imgur.com/BmBUfQ5.jpg',
-    'https://i.imgur.com/SYEKjxd.png',
-    'https://i.imgur.com/zo8pLBI.png',
-    'https://i.imgur.com/kuEOXex.jpeg',
-    'https://i.imgur.com/PfRNxFd.jpeg',
-    'https://i.imgur.com/n12rgmF.jpg',
-    'https://i.imgur.com/kLAfqtN.jpg',
-    'https://i.imgur.com/hi4DZST.jpeg',
-    'https://i.imgur.com/jVlMAHx.jpeg',
-  ];
 
   return (
     <View style={styles.root}>
