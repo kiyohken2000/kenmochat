@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, Image, useColorScheme, FlatList } from 'react-native'
+import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, Image, useColorScheme, FlatList, Dimensions } from 'react-native'
 import styles from './styles'
 import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
 import { firebase } from '../../firebase/config'
@@ -19,16 +19,20 @@ export default function Talk({ route, navigation }) {
   const talkData = route.params.talkData
   const myProfile = route.params.myProfile
   const [messages, setMessages] = useState([])
+  const [stamps, setStamps] = useState([])
   const [modal, setToggle] = useState(false)
   const [title, setTitle] = useState(talkData.name)
   const [theArray, setTheArray] = useState([])
   const [progress, setProgress] = useState('')
   const [image, setImage] = useState('')
   const [dialog, setDialog] = useState(false)
+  const [selectStamp, setSelectStamp] = useState(false)
   const [talking, setTalking] = useState(false)
+  const [isUpload, setUpload] = useState(false)
   const contactArray = Object.values(myProfile.contact?myProfile.contact:['example@example.com'])
   const scheme = useColorScheme()
   const sheetRef = useRef(null)
+  const height = Dimensions.get('window').height
 
   async function handleSend(messages) {
     const text = messages[0].text;
@@ -71,6 +75,20 @@ export default function Talk({ route, navigation }) {
         setTitle(title)
       })
     return () => titleListener()
+  }, []);
+
+  useEffect(() => {
+    const stampListener = firebase.firestore()
+      .collection('stamp')
+      .doc(myProfile.email)
+      .onSnapshot(function(document) {
+        const data = document.data()
+        const d = data.stamp ? data.stamp : ['https://pinepro.ml/static/avatar-780242398e277f267092de9beaa077c9.png']
+        const s = d.reverse()
+        const stamps = s.concat(items)
+        setStamps(stamps)
+      })
+    return () => stampListener()
   }, []);
 
   useEffect(() => {
@@ -192,6 +210,54 @@ export default function Talk({ route, navigation }) {
     }
   }
 
+  async function imgurUpload() {
+    try {
+      if (Constants.platform.ios) {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (status !== 'granted') {
+          alert("Permission is required for use.");
+          return;
+        }
+      }
+      const result = await ImagePicker.launchImageLibraryAsync({base64: true});
+        if (!result.cancelled) {
+          const stampRef = firebase.firestore().collection('stamp').doc(myProfile.email)
+          const formdata = new FormData()
+          formdata.append("image", result.base64)
+          setUpload(true)
+          fetch("https://api.imgur.com/3/image/", {
+            method: "post",
+            headers: {
+              Authorization: `Client-ID ${imgur.clientID}`
+            },
+            body: formdata
+          }).then(data => data.json()).then(data => {
+            url = data.data.link
+            console.log(url)
+            stampRef.update({
+              stamp: firebase.firestore.FieldValue.arrayUnion(url)
+            })
+            setUpload(false)
+          })
+          .catch(error => {
+            alert('upload failed')
+          })
+        }
+    } catch (e) {
+        console.log('error',e.message);
+        alert("The size may be too much.");
+    }
+  }
+
+  function removeStamp() {
+    const stampRef = firebase.firestore().collection('stamp').doc(myProfile.email)
+    stampRef.update({
+      stamp: firebase.firestore.FieldValue.arrayRemove(image)
+    })
+    setImage('')
+    setSelectStamp(false)
+  }
+
   function sendImage() {
     const messageRef = firebase.firestore().collection('talk')
     messageRef
@@ -209,6 +275,8 @@ export default function Talk({ route, navigation }) {
         }
       });
     setDialog(false)
+    setSelectStamp(false)
+    sheetRef.current.snapTo(2)
     setImage('')
   }
 
@@ -354,8 +422,18 @@ export default function Talk({ route, navigation }) {
   const renderContent = () => (
     <View style={scheme === 'dark' ? styles.darkbottomsheatcontainer : styles.bottomsheatcontainer}>
       <Divider style={styles.divide} />
+        <View style={styles.uploadcontainer}>
+          {isUpload ?
+            <View style={styles.upload}>
+              <IconButton icon='progress-upload' size={24} color='#32cd32' style={{ alignSelf: 'center', marginTop: 0, marginBottom: 0 }} />
+            </View> :
+            <TouchableOpacity style={styles.upload} onPress={imgurUpload}>
+              <IconButton icon='cloud-upload-outline' size={24} color='#f0f8ff' style={{ alignSelf: 'center', marginTop: 0, marginBottom: 0 }} />
+            </TouchableOpacity>
+          }
+        </View>
         <FlatList 
-          data={items}
+          data={stamps}
           keyExtractor={(item, index) => index.toString()}
           numColumns={3}
           renderItem={({item}) => (
@@ -373,8 +451,7 @@ export default function Talk({ route, navigation }) {
   function select(url) {
     console.log(url)
     setImage(url)
-    setDialog(true)
-    sheetRef.current.snapTo(2)
+    setSelectStamp(true)
   }
 
   return (
@@ -412,19 +489,19 @@ export default function Talk({ route, navigation }) {
         placeholder='Type your message here...'
       />
       {talking?
-        <View style={styles.Overlay}>
-          <TouchableOpacity onPress={stop}>
-            <Icon name="stop-circle" size={65} color="red"/>
-          </TouchableOpacity>
-        </View>:null}
-        <View style={{marginBottom: 20}} />
-        <BottomSheet
-          ref={sheetRef}
-          snapPoints={[450, 300, 20]}
-          initialSnap={2}
-          borderRadius={20}
-          renderContent={renderContent}
-        />
+      <View style={styles.Overlay}>
+        <TouchableOpacity onPress={stop}>
+          <Icon name="stop-circle" size={65} color="red"/>
+        </TouchableOpacity>
+      </View>:null}
+      <View style={{marginBottom: 20}} />
+      <BottomSheet
+        ref={sheetRef}
+        snapPoints={[height*0.6, 250, 20]}
+        initialSnap={2}
+        borderRadius={20}
+        renderContent={renderContent}
+      />
       <Modal
         visible={modal}
         transparent={false}
@@ -480,6 +557,16 @@ export default function Talk({ route, navigation }) {
         />
         <Dialog.Button label="OK" bold={true} onPress={() => sendImage()} />
         <Dialog.Button label="Cancel" onPress={() => setDialog(false)} />
+      </Dialog.Container>
+      <Dialog.Container visible={selectStamp}>
+        <Dialog.Title>Send image?</Dialog.Title>
+        <Image
+          style={styles.logo}
+          source={{uri: image}}
+        />
+        <Dialog.Button label="Send" bold={true} onPress={() => sendImage()} />
+        <Dialog.Button label="Remove" onPress={() => removeStamp()} />
+        <Dialog.Button label="Cancel" onPress={() => setSelectStamp(false)} />
       </Dialog.Container>
     </View>
   )

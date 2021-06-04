@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.8",
+    "version": "1.0.9",
     "orientation": "portrait",
     "icon": "./assets/images/logo-sm.png",
     "splash": {
@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.votepurchase.pine",
-      "buildNumber": "1.0.8",
+      "buildNumber": "1.0.9",
       "infoPlist": {
         "NSCameraUsageDescription": "Used to add a user to your contacts with a QR code.",
         "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar and send images in chat."
@@ -35,7 +35,7 @@
     },
     "android": {
       "package": "net.votepurchase.pine",
-      "versionCode": 10,
+      "versionCode": 11,
       "googleServicesFile": "./google-services.json",
       "userInterfaceStyle": "automatic",
       "permissions": [

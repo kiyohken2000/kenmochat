@@ -24,6 +24,7 @@ export default function Chat({route, navigation }) {
   const [title, setTitle] = useState('')
   const [image, setImage] = useState('')
   const [dialog, setDialog] = useState(false)
+  const [selectStamp, setSelectStamp] = useState(false)
   const [talking, setTalking] = useState(false)
   const [isUpload, setUpload] = useState(false)
   const scheme = useColorScheme()
@@ -238,11 +239,23 @@ export default function Chat({route, navigation }) {
             })
             setUpload(false)
           })
+          .catch(error => {
+            alert('upload failed')
+          })
         }
     } catch (e) {
         console.log('error',e.message);
         alert("The size may be too much.");
     }
+  }
+
+  function removeStamp() {
+    const stampRef = firebase.firestore().collection('stamp').doc(myProfile.email)
+    stampRef.update({
+      stamp: firebase.firestore.FieldValue.arrayRemove(image)
+    })
+    setImage('')
+    setSelectStamp(false)
   }
 
   function sendImage() {
@@ -262,6 +275,8 @@ export default function Chat({route, navigation }) {
         }
       });
     setDialog(false)
+    setSelectStamp(false)
+    sheetRef.current.snapTo(2)
     setImage('')
   }
 
@@ -358,10 +373,10 @@ export default function Chat({route, navigation }) {
         <View style={styles.uploadcontainer}>
           {isUpload ?
             <View style={styles.upload}>
-              <IconButton icon='progress-upload' size={24} color='#32cd32' style={{ alignSelf: 'center', marginTop: 0 }} />
+              <IconButton icon='progress-upload' size={24} color='#32cd32' style={{ alignSelf: 'center', marginTop: 0, marginBottom: 0 }} />
             </View> :
             <TouchableOpacity style={styles.upload} onPress={imgurUpload}>
-              <IconButton icon='cloud-upload-outline' size={24} color='#f0f8ff' style={{ alignSelf: 'center', marginTop: 0 }} />
+              <IconButton icon='cloud-upload-outline' size={24} color='#f0f8ff' style={{ alignSelf: 'center', marginTop: 0, marginBottom: 0 }} />
             </TouchableOpacity>
           }
         </View>
@@ -384,8 +399,7 @@ export default function Chat({route, navigation }) {
   function select(url) {
     console.log(url)
     setImage(url)
-    setDialog(true)
-    sheetRef.current.snapTo(2)
+    setSelectStamp(true)
   }
 
   return (
@@ -423,19 +437,19 @@ export default function Chat({route, navigation }) {
         placeholder='Type your message here...'
       />
       {talking?
-        <View style={styles.Overlay}>
-          <TouchableOpacity onPress={stop}>
-            <Icon name="stop-circle" size={65} color="red"/>
-          </TouchableOpacity>
-        </View>:null}
-        <View style={{marginBottom: 20}} />
-        <BottomSheet
-          ref={sheetRef}
-          snapPoints={[height*0.6, 300, 20]}
-          initialSnap={2}
-          borderRadius={20}
-          renderContent={renderContent}
-        />
+      <View style={styles.Overlay}>
+        <TouchableOpacity onPress={stop}>
+          <Icon name="stop-circle" size={65} color="red"/>
+        </TouchableOpacity>
+      </View>:null}
+      <View style={{marginBottom: 20}} />
+      <BottomSheet
+        ref={sheetRef}
+        snapPoints={[height*0.6, 250, 20]}
+        initialSnap={2}
+        borderRadius={20}
+        renderContent={renderContent}
+      />
       <Dialog.Container visible={dialog}>
         <Dialog.Title>Send image?</Dialog.Title>
         <Image
@@ -444,6 +458,16 @@ export default function Chat({route, navigation }) {
         />
         <Dialog.Button label="OK" bold={true} onPress={() => sendImage()} />
         <Dialog.Button label="Cancel" onPress={() => setDialog(false)} />
+      </Dialog.Container>
+      <Dialog.Container visible={selectStamp}>
+        <Dialog.Title>Send image?</Dialog.Title>
+        <Image
+          style={styles.logo}
+          source={{uri: image}}
+        />
+        <Dialog.Button label="Send" bold={true} onPress={() => sendImage()} />
+        <Dialog.Button label="Remove" onPress={() => removeStamp()} />
+        <Dialog.Button label="Cancel" onPress={() => setSelectStamp(false)} />
       </Dialog.Container>
     </View>
   )
