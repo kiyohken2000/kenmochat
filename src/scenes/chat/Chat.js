@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Text, View, Modal, Image, TouchableOpacity, TextInput, StatusBar, useColorScheme, FlatList, Dimensions } from 'react-native'
+import { Text, View, Modal, Image, TouchableOpacity, TextInput, StatusBar, useColorScheme, Dimensions, Platform, Button } from 'react-native'
 import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
+import { FlatList } from "react-native-gesture-handler"
 import styles from './styles'
 import { IconButton } from 'react-native-paper'
 import { firebase } from '../../firebase/config'
@@ -27,6 +28,7 @@ export default function Chat({route, navigation }) {
   const [selectStamp, setSelectStamp] = useState(false)
   const [talking, setTalking] = useState(false)
   const [isUpload, setUpload] = useState(false)
+  const [isOpne, setOpne] = useState(false)
   const scheme = useColorScheme()
   const sheetRef = useRef(null)
   const height = Dimensions.get('window').height
@@ -367,8 +369,31 @@ export default function Chat({route, navigation }) {
     talkRef.update({ name: title})
   }
 
+  function opneSheet() {
+    sheetRef.current.snapTo(0)
+    setOpne(true)
+  }
+
+  function closeSheet() {
+    sheetRef.current.snapTo(2)
+    setOpne(false)
+  }
+
   const renderContent = () => (
     <View style={scheme === 'dark' ? styles.darkbottomsheatcontainer : styles.bottomsheatcontainer}>
+      {Platform.OS != 'ios'?
+        isOpne ?
+          <Button
+            title="Close"
+            color="#841584"
+            onPress={closeSheet}
+          /> :
+          <Button
+            title="Open"
+            onPress={opneSheet}
+          />
+        :null
+      }
       <Divider style={styles.divide} />
         <View style={styles.uploadcontainer}>
           {isUpload ?
@@ -449,6 +474,7 @@ export default function Chat({route, navigation }) {
         initialSnap={2}
         borderRadius={20}
         renderContent={renderContent}
+        enabledContentGestureInteraction={Platform.OS === 'ios'?true:false}
       />
       <Dialog.Container visible={dialog}>
         <Dialog.Title>Send image?</Dialog.Title>
