@@ -260,7 +260,7 @@ export default function Chat({route, navigation }) {
     setSelectStamp(false)
   }
 
-  function sendImage() {
+  async function sendImage() {
     const messageRef = firebase.firestore().collection('THREADS')
     messageRef
       .doc(talkData.id)
@@ -276,6 +276,18 @@ export default function Chat({route, navigation }) {
           name: myProfile.fullName,
         }
       });
+    await messageRef
+    .doc(talkData.id)
+    .set(
+      {
+        latestMessage: {
+          text: 'Send image.',
+          avatar: myProfile.avatar,
+          createdAt: new Date().getTime()
+        }
+      },
+      { merge: true }
+    );
     setDialog(false)
     setSelectStamp(false)
     sheetRef.current.snapTo(2)
