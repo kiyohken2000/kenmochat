@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, Image, useColorScheme, FlatList, Dimensions } from 'react-native'
+import { Text, View, Modal, ScrollView, TouchableOpacity, TextInput, Image, useColorScheme, Dimensions, Platform, Button } from 'react-native'
 import styles from './styles'
 import { GiftedChat, Send, SystemMessage, Bubble, Actions, ActionsProps, InputToolbar } from 'react-native-gifted-chat'
+import { FlatList } from "react-native-gesture-handler"
 import { firebase } from '../../firebase/config'
 import { IconButton } from 'react-native-paper'
 import { Divider, Avatar } from 'react-native-elements'
@@ -29,6 +30,7 @@ export default function Talk({ route, navigation }) {
   const [selectStamp, setSelectStamp] = useState(false)
   const [talking, setTalking] = useState(false)
   const [isUpload, setUpload] = useState(false)
+  const [isOpne, setOpne] = useState(false)
   const contactArray = Object.values(myProfile.contact?myProfile.contact:['example@example.com'])
   const scheme = useColorScheme()
   const sheetRef = useRef(null)
@@ -277,6 +279,7 @@ export default function Talk({ route, navigation }) {
     setDialog(false)
     setSelectStamp(false)
     sheetRef.current.snapTo(2)
+    setOpne(false)
     setImage('')
   }
 
@@ -419,8 +422,31 @@ export default function Talk({ route, navigation }) {
     }
   })
 
+  function opneSheet() {
+    sheetRef.current.snapTo(0)
+    setOpne(true)
+  }
+
+  function closeSheet() {
+    sheetRef.current.snapTo(2)
+    setOpne(false)
+  }
+
   const renderContent = () => (
     <View style={scheme === 'dark' ? styles.darkbottomsheatcontainer : styles.bottomsheatcontainer}>
+      {Platform.OS != 'ios'?
+        isOpne ?
+          <Button
+            title="Close"
+            color="#841584"
+            onPress={closeSheet}
+          /> :
+          <Button
+            title="Open"
+            onPress={opneSheet}
+          />
+        :null
+      }
       <Divider style={styles.divide} />
         <View style={styles.uploadcontainer}>
           {isUpload ?
@@ -501,6 +527,7 @@ export default function Talk({ route, navigation }) {
         initialSnap={2}
         borderRadius={20}
         renderContent={renderContent}
+        enabledContentGestureInteraction={Platform.OS === 'ios'?true:false}
       />
       <Modal
         visible={modal}

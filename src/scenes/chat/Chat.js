@@ -279,6 +279,7 @@ export default function Chat({route, navigation }) {
     setDialog(false)
     setSelectStamp(false)
     sheetRef.current.snapTo(2)
+    setOpne(false)
     setImage('')
   }
 
