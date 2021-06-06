@@ -14,4 +14,9 @@ export const items = [
   'https://i.imgur.com/lr6v5YR.jpg',
   'https://i.imgur.com/cR4UZYk.jpg',
   'https://i.imgur.com/5aeKc4C.jpg',
+  'https://i.imgur.com/9Qr4sYH.png',
+  'https://i.imgur.com/PKysNyN.jpg',
+  'https://i.imgur.com/RY9YMIq.png',
+  'https://i.imgur.com/R4i963Z.png',
+  'https://i.imgur.com/8Z6VQn7.jpg',
 ];
