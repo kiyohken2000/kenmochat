@@ -363,18 +363,18 @@ export default function Talk({ route, navigation }) {
     setTalking(false)
   }
 
-  function exitTalk() {
+  async function exitTalk() {
     const userRef2 = firebase.firestore().collection('users2').doc(myProfile.email)
     const userRef = firebase.firestore().collection('users').doc(myProfile.id)
     const talkRef = firebase.firestore().collection('talk').doc(talkData.id)
-    userRef2.update({
-      talk: firebase.firestore.FieldValue.arrayRemove(talkData.id)
-    })
-    userRef.update({
-      talk: firebase.firestore.FieldValue.arrayRemove(talkData.id)
-    })
-    talkRef.update({
+    await talkRef.update({
       members: firebase.firestore.FieldValue.arrayRemove(myProfile.email)
+    })
+    await userRef2.update({
+      talk: firebase.firestore.FieldValue.arrayRemove(talkData.id)
+    })
+    await userRef.update({
+      talk: firebase.firestore.FieldValue.arrayRemove(talkData.id)
     })
     navigation.goBack()
   }
