@@ -5,28 +5,31 @@ import { firebase } from '../../firebase/config'
 import { Divider, Avatar } from 'react-native-elements'
 
 export default function Home(props) {
-  const [theArray, setTheArray] = useState([])
   const userData = props.extraData
+  const [theArray, setTheArray] = useState([])
   const talkArray = Object.values(userData.talk?userData.talk:['5U9jbKELiLAO7ZQEYt0K'])
   const scheme = useColorScheme()
 
   useEffect(() => {
-    setTheArray([])
-    for (const elem of talkArray) {
-      const userRef2 = firebase.firestore().collection('talk').doc(elem)
-      userRef2.get().then((doc) => {
-        if (doc.exists) {
-          userRef2
-          .onSnapshot(function(document) {
-            const data = document.data()
-            setTheArray(oldArray => [...oldArray, data])
-          })
-        } else {
-          null
-        }
-      })
+    const talkListner = () => {
+      setTheArray([])
+      for (const elem of talkArray) {
+        const userRef2 = firebase.firestore().collection('talk').doc(elem)
+        userRef2.get().then((doc) => {
+          if (doc.exists) {
+            userRef2
+            .onSnapshot(function(document) {
+              const data = document.data()
+              setTheArray(oldArray => [...oldArray, data])
+            })
+          } else {
+            null
+          }
+        })
+      }
     }
-  },[])
+    talkListner()
+  },[userData.talk])
 
   theArray.sort(function(a, b) {
     if (a.latestMessage.createdAt > b.latestMessage.createdAt) {

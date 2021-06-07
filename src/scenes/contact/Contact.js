@@ -13,18 +13,22 @@ export default function Contact(props) {
   const scheme = useColorScheme()
 
   useEffect(() => {
-    for (const elem of contactArray) {
-      const userRef2 = firebase.firestore().collection('users2').doc(elem)
-      userRef2.get().then((doc) => {
-        if (doc.exists) {
-          const data = doc.data()
-          setTheArray(oldArray => [...oldArray, data])
-        } else {
-          null
-        }
-      })
+    const contactListner = () => {
+      setTheArray([])
+      for (const elem of contactArray) {
+        const userRef2 = firebase.firestore().collection('users2').doc(elem)
+        userRef2.get().then((doc) => {
+          if (doc.exists) {
+            const data = doc.data()
+            setTheArray(oldArray => [...oldArray, data])
+          } else {
+            null
+          }
+        })
+      }
     }
-  },[])
+    contactListner()
+  },[userData])
 
   const addUser = () => {
     const usersRef2 = firebase.firestore().collection('users2').doc(email)

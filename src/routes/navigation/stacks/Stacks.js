@@ -1,11 +1,18 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { colors } from 'theme'
-import Home from 'scenes/home'
-import Profile from 'scenes/profile'
-import Details from 'scenes/details'
 import Login from '../../../scenes/login'
 import Registration from '../../../scenes/registration'
+import Home from '../../../scenes/home'
+import Profile from '../../../scenes/profile'
+import Detail from '../../../scenes/details'
+import Scan from '../../../scenes/scan'
+import Contact from '../../../scenes/contact'
+import User from '../../../scenes/user'
+import Info from '../../../scenes/info'
+import Talk from '../../../scenes/talk'
+import Participant from '../../../scenes/participant'
+import Stream from '../../../scenes/stream'
+import Chat from '../../../scenes/chat'
 
 // ------------------------------------
 // Constants
@@ -13,64 +20,97 @@ import Registration from '../../../scenes/registration'
 
 const Stack = createStackNavigator()
 
-const navigationProps = {
-  headerTintColor: 'white',
-  headerStyle: { backgroundColor: colors.darkPurple },
-  headerTitleStyle: { fontSize: 18 },
-}
-
 // ------------------------------------
 // Navigators
 // ------------------------------------
 
-export const LoginNavigator = () => (
-  <Stack.Navigator
-    initialRouteName="Login"
-    headerMode="screen"
-    screenOptions={navigationProps}
-  >
-    <Stack.Screen
-      name="Login"
-      component={Login}
-    />
-    <Stack.Screen
-      name="Registration"
-      component={Registration}
-    />
-    <Stack.Screen name="Home" component={HomeNavigator} options={{ title: '', headerTransparent: true }}/>
-  </Stack.Navigator>
-)
+export const LoginNavigator = (props) => {
+  const navigationProps = props.navigationProps
+  return (
+    <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+      />
+      <Stack.Screen
+        name="Registration"
+        component={Registration}
+      />
+    </Stack.Navigator>
+  )
+}
 
-export const HomeNavigator = () => (
-  <Stack.Navigator
-    initialRouteName="Home"
-    headerMode="screen"
-    screenOptions={navigationProps}
-  >
-    <Stack.Screen
-      name="Home"
-      component={Home}
-    />
-    <Stack.Screen
-      name="Details"
-      component={Details}
-    />
-  </Stack.Navigator>
-)
+export const HomeNavigator = (props) => {
+  const user = props.user
+  const navigationProps = props.navigationProps
+  return (
+    <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+      <Stack.Screen name="Home">
+        {props => <Home {...props} extraData={user} />}
+      </Stack.Screen>
+      <Stack.Screen name="Talk">
+        {props => <Talk {...props} extraData={user} />}
+      </Stack.Screen>
+      <Stack.Screen name="Participant">
+        {props => <Participant {...props} extraData={user} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  )
+}
 
-export const ProfileNavigator = () => (
-  <Stack.Navigator
-    initialRouteName="Profile"
-    headerMode="screen"
-    screenOptions={navigationProps}
-  >
-    <Stack.Screen
-      name="Profile"
-      component={Profile}
-    />
-    <Stack.Screen
-      name="Details"
-      component={Details}
-    />
-  </Stack.Navigator>
-)
+export const ProfileNavigator = (props) => {
+  const user = props.user
+  const navigationProps = props.navigationProps
+  return (
+    <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+      <Stack.Screen name="Profile">
+        {props => <Profile {...props} extraData={user} />}
+      </Stack.Screen>
+      <Stack.Screen name="Detail">
+        {props => <Detail {...props} extraData={user} />}
+      </Stack.Screen>
+      <Stack.Screen name="Scan">
+        {props => <Scan {...props} extraData={user} />}
+      </Stack.Screen>
+      <Stack.Screen name="User">
+        {props => <User {...props} extraData={user} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  )
+}
+
+export const ContactNavigator = (props) => {
+  const user = props.user
+  const navigationProps = props.navigationProps
+  return (
+    <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+      <Stack.Screen name="Contact">
+        {props => <Contact {...props} extraData={user} />}
+      </Stack.Screen>
+      <Stack.Screen name="User">
+        {props => <User {...props} extraData={user} />}
+      </Stack.Screen>
+      <Stack.Screen name="Info">
+        {props => <Info {...props} extraData={user} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  )
+}
+
+export const StreamNavigator = (props) => {
+  const user = props.user
+  const navigationProps = props.navigationProps
+  return (
+    <Stack.Navigator headerMode="screen" screenOptions={navigationProps}>
+      <Stack.Screen name="Stream">
+        {props => <Stream {...props} extraData={user} />}
+      </Stack.Screen>
+      <Stack.Screen name="Chat">
+        {props => <Chat {...props} extraData={user} />}
+      </Stack.Screen>
+      <Stack.Screen name="Participant">
+        {props => <Participant {...props} extraData={user} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  )
+}
