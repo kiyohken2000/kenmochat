@@ -29,7 +29,7 @@ export default function Home(props) {
       }
     }
     talkListner()
-  },[userData.talk])
+  },[userData])
 
   theArray.sort(function(a, b) {
     if (a.latestMessage.createdAt > b.latestMessage.createdAt) {
