@@ -402,7 +402,7 @@ export default function Chat({route, navigation }) {
             onPress={closeSheet}
           /> :
           <Button
-            title="Open"
+            title="Stamp"
             onPress={opneSheet}
           />
         :null
@@ -480,10 +480,10 @@ export default function Chat({route, navigation }) {
           <Icon name="stop-circle" size={65} color="red"/>
         </TouchableOpacity>
       </View>:null}
-      <View style={{marginBottom: 20}} />
+      <View style={{marginBottom: Platform.OS === 'ios'?20:40}} />
       <BottomSheet
         ref={sheetRef}
-        snapPoints={[height*0.6, 250, 20]}
+        snapPoints={[height*0.6, 250, Platform.OS === 'ios'?20:40]}
         initialSnap={2}
         borderRadius={20}
         renderContent={renderContent}
