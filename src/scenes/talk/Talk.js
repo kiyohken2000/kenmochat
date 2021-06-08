@@ -243,6 +243,7 @@ export default function Talk({ route, navigation }) {
           })
           .catch(error => {
             alert('upload failed')
+            setUpload(false)
           })
         }
     } catch (e) {
