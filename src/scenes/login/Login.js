@@ -62,6 +62,7 @@ export default function Login({navigation}) {
           value={email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          keyboardType={'email-address'}
         />
         <TextInput
           style={scheme === 'dark' ? styles.darkinput : styles.input}
