@@ -4,8 +4,10 @@ import { firebase } from '../../firebase/config'
 import FontIcon from 'react-native-vector-icons/FontAwesome5'
 
 export default function Unread(props) {
+  console.log('StartScreen')
   const id = props.talk.id
   const email = props.data.email
+  const createdAt = props.talk.latestMessage.createdAt
   const [data, setData] = useState([])
 
   useEffect(() =>{
@@ -16,8 +18,9 @@ export default function Unread(props) {
         setData(data)
       }
     });
+    console.log('useEffect')
     return () => unmount()
-  },[data])
+  },[createdAt])
 
   function info(i) {
     if (i.includes(email)) {
