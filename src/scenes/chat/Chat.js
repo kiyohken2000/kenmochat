@@ -9,6 +9,9 @@ import { Divider, Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker'
 import * as ImageManipulator from 'expo-image-manipulator'
 import * as Speech from 'expo-speech'
+import * as FileSystem from 'expo-file-system'
+import * as MediaLibrary from 'expo-media-library'
+import * as Haptics from 'expo-haptics'
 import Clipboard from 'expo-clipboard'
 import Constants from 'expo-constants'
 import Dialog from 'react-native-dialog'
@@ -319,30 +322,70 @@ export default function Chat({route, navigation }) {
   }
 
   function delMessage(context, message) {
-    const options = ['Delete Message', 'Copy Text', 'Speech', 'Cancel'];
-    const cancelButtonIndex = options.length - 1;
-    context.actionSheet().showActionSheetWithOptions({
-      options,
-      cancelButtonIndex
-    }, (buttonIndex) => {
-      switch (buttonIndex) {
-        case 0:
-          if (message.user.email == myProfile.email) {
-            firebase.firestore().collection('THREADS').doc(talkData.id).collection('MESSAGES').doc(message._id).delete()
-          } else {
-            alert('You can only delete own messages.')
-          }
-          break
-        case 1:
-          const text = message.text
-          Clipboard.setString(text)
-          break
-        case 2:
-          const script = message.text
-          speak(script)
-          break
-      }
-    });
+    const imageUrl = message.image
+    if (!message.image) {
+      const options = ['Delete Message', 'Copy Text', 'Speech', 'Cancel'];
+      const cancelButtonIndex = options.length - 1;
+      context.actionSheet().showActionSheetWithOptions({
+        options,
+        cancelButtonIndex
+      }, (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            if (message.user.email == myProfile.email) {
+              firebase.firestore().collection('THREADS').doc(talkData.id).collection('MESSAGES').doc(message._id).delete()
+            } else {
+              alert('You can only delete own messages.')
+            }
+            break
+          case 1:
+            const text = message.text
+            Clipboard.setString(text)
+            break
+          case 2:
+            const script = message.text
+            speak(script)
+            break
+        }
+      });
+    } else {
+      const options = ['Delete Message', 'Save Image', 'Cancel'];
+      const cancelButtonIndex = options.length - 1;
+      context.actionSheet().showActionSheetWithOptions({
+        options,
+        cancelButtonIndex
+      }, (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            if (message.user.email == myProfile.email) {
+              firebase.firestore().collection('THREADS').doc(talkData.id).collection('MESSAGES').doc(message._id).delete()
+            } else {
+              alert('You can only delete own messages.')
+            }
+            break
+          case 1:
+            downloadImage(imageUrl)
+            break
+        }
+      });
+    }
+  }
+
+  const downloadImage = ( file ) => {
+    FileSystem.downloadAsync(
+      file,
+      FileSystem.documentDirectory + 'image.png'
+    )
+    .then( async ( { uri } ) => {
+      const { status } = await MediaLibrary.requestPermissionsAsync()
+      if( status !== 'granted' ) return
+      MediaLibrary.saveToLibraryAsync( uri )
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+    })
+    .catch(error => {
+      console.log(error)
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+    })
   }
 
   function speak(txt) {
@@ -381,6 +424,7 @@ export default function Chat({route, navigation }) {
   function titleUpdate() {
     const talkRef = firebase.firestore().collection('THREADS').doc(talkData.id)
     talkRef.update({ name: title})
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
   }
 
   function opneSheet() {
