@@ -16,7 +16,7 @@ export default function Unread(props) {
         setData(data)
       }
     });
-    return unmount;
+    return () => unmount()
   },[data])
 
   function info(i) {
