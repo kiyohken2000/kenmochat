@@ -315,7 +315,9 @@ export default function Talk({ route, navigation }) {
         latestMessage: {
           text: 'Send image.',
           avatar: myProfile.avatar,
-          createdAt: new Date().getTime()
+          createdAt: new Date().getTime(),
+          email: myProfile.email,
+          unread: members
         }
       },
       { merge: true }
