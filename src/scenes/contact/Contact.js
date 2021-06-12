@@ -65,6 +65,7 @@ export default function Contact(props) {
           value={email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          keyboardType={'email-address'}
         />
         {email?(
           <TouchableOpacity style={styles.button} onPress={addUser}>

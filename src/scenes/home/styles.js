@@ -84,11 +84,15 @@ export default StyleSheet.create({
     fontSize: 16
   },
   item: {
-    marginLeft: 10,
+    marginLeft: 5,
     marginRight: 10,
   },
   avatar: {
     margin: 10,
     alignSelf: "center",
   },
+  unread: {
+    alignItems: "center",
+    justifyContent: 'center',
+  }
 })

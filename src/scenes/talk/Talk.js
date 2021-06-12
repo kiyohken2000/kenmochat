@@ -24,6 +24,7 @@ export default function Talk({ route, navigation }) {
   const [modal, setToggle] = useState(false)
   const [title, setTitle] = useState(talkData.name)
   const [theArray, setTheArray] = useState([])
+  const [members, setMembers] = useState([])
   const [progress, setProgress] = useState('')
   const [image, setImage] = useState('')
   const [dialog, setDialog] = useState(false)
@@ -60,7 +61,8 @@ export default function Talk({ route, navigation }) {
             text,
             avatar: myProfile.avatar,
             createdAt: new Date().getTime(),
-            email: myProfile.email
+            email: myProfile.email,
+            unread: members
           }
         },
         { merge: true }
@@ -77,6 +79,35 @@ export default function Talk({ route, navigation }) {
         setTitle(title)
       })
     return () => titleListener()
+  }, []);
+
+  useEffect(() => {
+    const membersListener = firebase.firestore()
+      .collection('talk')
+      .doc(talkData.id)
+      .onSnapshot(function(document) {
+        const data = document.data()
+        const members = data.members
+        setMembers(members)
+      })
+    return () => membersListener()
+  }, []);
+
+  useEffect(() => {
+    const unreadListener = firebase.firestore()
+      .collection('talk')
+      .doc(talkData.id)
+      .onSnapshot(function(document) {
+        const data = document.data()
+        firebase
+        .firestore()
+        .collection('talk').doc(talkData.id).set({
+          latestMessage : {
+            unread: firebase.firestore.FieldValue.arrayRemove(myProfile.email)
+          }
+        }, { merge: true })
+      })
+    return () => unreadListener()
   }, []);
 
   useEffect(() => {

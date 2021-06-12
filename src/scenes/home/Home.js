@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, TouchableOpacity, ScrollView, StatusBar, useColorScheme } from 'react-native'
 import styles from './styles'
+import Unread from './unread'
 import { firebase } from '../../firebase/config'
 import { Divider, Avatar } from 'react-native-elements'
 
@@ -49,7 +50,6 @@ export default function Home(props) {
      const time = new Date(timestamp).toISOString().substr(0, 10)
      return time
   }
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -61,6 +61,9 @@ export default function Home(props) {
                 <View key={i} style={styles.item}>
                   <TouchableOpacity onPress={() => props.navigation.navigate('Talk', { talkData: talk, myProfile: userData })}>
                     <View style={{flexDirection: 'row'}}>
+                      <View style={styles.unread}>
+                        <Unread talk={talk} data={userData}/>
+                      </View>
                       <View style={styles.avatar}>
                         <Avatar
                           size="medium"
