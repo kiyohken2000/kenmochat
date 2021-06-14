@@ -18,6 +18,7 @@ import Dialog from 'react-native-dialog'
 import Icon from 'react-native-vector-icons/Feather'
 import BottomSheet from 'reanimated-bottom-sheet'
 import { imgur, items } from '../key'
+import TypingIndicator from '../typing/Typing'
 
 export default function Chat({route, navigation }) {
   const myProfile = route.params.myProfile
@@ -35,39 +36,36 @@ export default function Chat({route, navigation }) {
   const scheme = useColorScheme()
   const sheetRef = useRef(null)
   const height = Dimensions.get('window').height
+  const [input, setInput] = useState('')
 
   async function handleSend(messages) {
     const text = messages[0].text;
-    if (text.length <= 300) {
-      const messageRef = firebase.firestore().collection('THREADS')
-      messageRef
-        .doc(talkData.id)
-        .collection('MESSAGES')
-        .add({
-          text,
-          createdAt: new Date().getTime(),
-          user: {
-            _id: myProfile.id,
-            email: myProfile.email,
+    const messageRef = firebase.firestore().collection('THREADS')
+    messageRef
+      .doc(talkData.id)
+      .collection('MESSAGES')
+      .add({
+        text,
+        createdAt: new Date().getTime(),
+        user: {
+          _id: myProfile.id,
+          email: myProfile.email,
+          avatar: myProfile.avatar,
+          name: myProfile.fullName,
+        }
+      });
+    await messageRef
+      .doc(talkData.id)
+      .set(
+        {
+          latestMessage: {
+            text,
             avatar: myProfile.avatar,
-            name: myProfile.fullName,
+            createdAt: new Date().getTime()
           }
-        });
-      await messageRef
-        .doc(talkData.id)
-        .set(
-          {
-            latestMessage: {
-              text,
-              avatar: myProfile.avatar,
-              createdAt: new Date().getTime()
-            }
-          },
-          { merge: true }
-        );
-    } else {
-      alert('Message is too long')
-    }
+        },
+        { merge: true }
+      );
   }
 
   useEffect(() => {
@@ -94,6 +92,12 @@ export default function Chat({route, navigation }) {
         setStamps(stamps)
       })
     return () => stampListener()
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      setInput('')
+    })
   }, []);
 
   useEffect(() => {
@@ -421,6 +425,14 @@ export default function Chat({route, navigation }) {
     });
   }
 
+  function handleInputTextChanged(text) {
+    setInput(text)
+  }
+
+  function renderFooter() {
+    return <TypingIndicator input={input} talkData={talkData} myProfile={myProfile} screen={'THREADS'} />
+  }
+
   function titleUpdate() {
     const talkRef = firebase.firestore().collection('THREADS').doc(talkData.id)
     talkRef.update({ name: title})
@@ -515,7 +527,10 @@ export default function Chat({route, navigation }) {
         renderUsernameOnMessage={true}
         renderActions={renderActions}
         onLongPress={delMessage}
+        maxInputLength={300}
+        onInputTextChanged={handleInputTextChanged}
         renderInputToolbar={renderInputToolbar}
+        renderFooter={renderFooter}
         textInputStyle={scheme === 'dark' ? styles.darktextInputStyle: styles.textInputStyle}
         placeholder='Type your message here...'
       />

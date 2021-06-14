@@ -18,6 +18,7 @@ import Dialog from 'react-native-dialog'
 import Icon from 'react-native-vector-icons/Feather'
 import BottomSheet from 'reanimated-bottom-sheet'
 import { imgur, items } from '../key'
+import TypingIndicator from '../typing/Typing'
 
 export default function Talk({ route, navigation }) {
   const talkData = route.params.talkData
@@ -39,6 +40,7 @@ export default function Talk({ route, navigation }) {
   const scheme = useColorScheme()
   const sheetRef = useRef(null)
   const height = Dimensions.get('window').height
+  const [input, setInput] = useState('')
 
   async function handleSend(messages) {
     const text = messages[0].text;
@@ -125,6 +127,12 @@ export default function Talk({ route, navigation }) {
         setStamps(stamps)
       })
     return () => stampListener()
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      setInput('')
+    })
   }, []);
 
   useEffect(() => {
@@ -482,6 +490,14 @@ export default function Talk({ route, navigation }) {
     });
   }
 
+  function handleInputTextChanged(text) {
+    setInput(text)
+  }
+
+  function renderFooter() {
+    return <TypingIndicator input={input} talkData={talkData} myProfile={myProfile} screen={'talk'} />
+  }
+
   function addUser(invUser) {
     const userRef2 = firebase.firestore().collection('users2').doc(invUser.email)
     const userRef1 = firebase.firestore().collection('users').doc(invUser.id)
@@ -600,7 +616,9 @@ export default function Talk({ route, navigation }) {
         renderUsernameOnMessage={true}
         renderActions={renderActions}
         onLongPress={delMessage}
+        onInputTextChanged={handleInputTextChanged}
         renderInputToolbar={renderInputToolbar}
+        renderFooter={renderFooter}
         textInputStyle={scheme === 'dark' ? styles.darktextInputStyle: styles.textInputStyle}
         placeholder='Type your message here...'
       />
