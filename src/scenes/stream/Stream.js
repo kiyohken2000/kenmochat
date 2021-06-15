@@ -14,7 +14,7 @@ export default function Stream( props ) {
     const talkRef = firebase.firestore().collection('THREADS').doc()
     talkRef.set({ 
       id: talkRef.id,
-      name: userData.fullName + ' room',
+      name: userData.fullName,
       latestMessage: {
         text: 'Chat start',
         createdAt: new Date().getTime(),

@@ -29,8 +29,10 @@ export default function Info({ route, navigation }) {
       members: [myProfile.email, userInfo.email],
       latestMessage: {
         text: 'Talk start',
+        avatar: myProfile.avatar,
         createdAt: new Date().getTime(),
-        email: myProfile.email
+        email: myProfile.email,
+        unread: [myProfile.email, userInfo.email]
       }
      })
     .then(() => {
