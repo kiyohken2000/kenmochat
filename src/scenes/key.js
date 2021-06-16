@@ -16,6 +16,8 @@ export const items = [
   'https://i.imgur.com/5aeKc4C.jpg',
   'https://i.imgur.com/s8MCJuI.png',
   'https://i.imgur.com/9hJbQ0S.png',
+  'https://i.imgur.com/KYBAJIs.jpg',
+  'https://i.imgur.com/rT3CFY2.jpg',
   'https://i.imgur.com/9Qr4sYH.png',
   'https://i.imgur.com/PKysNyN.jpg',
   'https://i.imgur.com/RY9YMIq.png',
