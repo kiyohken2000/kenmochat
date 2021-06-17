@@ -4,10 +4,12 @@ import Icon from 'react-native-vector-icons/Feather'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Divider, Avatar } from 'react-native-elements'
+import { staticRoom } from './static'
 
 export default function Stream( props ) {
   const userData = props.extraData
   const [threads, setThreads] = useState([]);
+  const [staticArray, setStatic] = useState([])
   const scheme = useColorScheme()
 
   const addRoom = () => {
@@ -26,13 +28,12 @@ export default function Stream( props ) {
         // console.log(doc.data())
       })
     })
-    // props.navigation.navigate('Chat', { talkID: talkRef.id, myProfile: userData })
   }
 
   useEffect(() => {
     const chatRef = firebase.firestore().collection('THREADS')
       chatRef
-      .orderBy('latestMessage.createdAt', 'desc').limit(20)
+      .orderBy('latestMessage.createdAt', 'desc').limit(16)
       .onSnapshot(querySnapshot => {
         const threads = querySnapshot.docs.map(documentSnapshot => {
           return {
@@ -48,6 +49,24 @@ export default function Stream( props ) {
       });
   }, []);
 
+  useEffect(() => {
+    for ( const elem of staticRoom ) {
+      staticRef = firebase.firestore().collection('THREADS')
+      .doc(elem)
+      .onSnapshot(function(document) {
+        const data = document.data()
+        setStatic(oldArray => [...oldArray, data])
+      })
+    }
+  }, []);
+
+  const mArray = threads.concat(staticArray)
+  var chatArray = mArray.filter(function(v1,i1,a1){ 
+    return (a1.findIndex(function(v2){ 
+      return (v1.id===v2.id) 
+    }) === i1);
+  });
+
   function displaytime(timestamp) {
     const time = new Date(timestamp).toISOString().substr(0, 10)
     return time
@@ -59,7 +78,7 @@ export default function Stream( props ) {
       <View style={{ flex: 1, width: '100%' }}>
         <ScrollView>
           {
-            threads.map((talk, i) => {
+            chatArray.map((talk, i) => {
               return (
                 <View key={i} style={styles.item}>
                   <TouchableOpacity onPress={() => props.navigation.navigate('Chat', { talkData: talk, myProfile: userData })}>
