@@ -15,8 +15,8 @@ if (!global.atob) { global.atob = decode }
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
+    shouldShowAlert: false,
+    shouldPlaySound: true,
     shouldSetBadge: false,
   }),
 });

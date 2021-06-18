@@ -33,7 +33,7 @@ export default function Stream( props ) {
   useEffect(() => {
     const chatRef = firebase.firestore().collection('THREADS')
       chatRef
-      .orderBy('latestMessage.createdAt', 'desc').limit(16)
+      .orderBy('latestMessage.createdAt', 'desc').limit(15)
       .onSnapshot(querySnapshot => {
         const threads = querySnapshot.docs.map(documentSnapshot => {
           return {
@@ -101,6 +101,10 @@ export default function Stream( props ) {
                             (<Text style={scheme === 'dark' ? styles.darkbot : styles.bot}>👁‍🗨Russian👁‍🗨</Text>) :
                             talk.id === 'T5XMlAahT3dWwHfxFnqH' ?
                             (<Text style={scheme === 'dark' ? styles.darkbot : styles.bot}>🔄Korean🔄</Text>) :
+                            talk.id === 'zBVTu3ZWHN69NEuBfU0P' ?
+                            (<Text style={scheme === 'dark' ? styles.darkbot : styles.bot}>安倍晋三公式✅</Text>) :
+                            talk.id === 'gUDLMznsSGu1ga9kHYa7' ?
+                            (<Text style={scheme === 'dark' ? styles.darkbot : styles.bot}>☑News from the Developer</Text>) :
                             null
                           }
                           <Text style={scheme === 'dark' ? styles.darklatestDate : styles.latestDate}>{displaytime(talk.latestMessage.createdAt)}</Text>
