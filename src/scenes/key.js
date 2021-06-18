@@ -61,6 +61,5 @@ export const items = [
 'https://i.imgur.com/kIkXQp4.jpg',
 'https://i.imgur.com/6tNC1SS.jpg',
 'https://i.imgur.com/eWc2qbG.jpg',
-'https://i.imgur.com/9iFYQ9o.jpg',
-'https://i.imgur.com/dPsFeQ7.jpg'
+'https://i.imgur.com/9iFYQ9o.jpg'
 ];
