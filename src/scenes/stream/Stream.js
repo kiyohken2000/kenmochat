@@ -70,7 +70,7 @@ export default function Stream( props ) {
   function displaytime(timestamp) {
     const time = new Date(timestamp).toISOString().substr(0, 10)
     return time
- }
+  }
 
   return (
     <View style={styles.container}>
