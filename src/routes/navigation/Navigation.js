@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { firebase } from '../../firebase/config'
 import { colors } from 'theme'
 import { NavigationContainer } from '@react-navigation/native'
@@ -17,7 +18,7 @@ Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: false,
     shouldPlaySound: true,
-    shouldSetBadge: false,
+    shouldSetBadge: true,
   }),
 });
 
@@ -33,6 +34,11 @@ export default function App() {
     },
     headerTitleStyle: { fontSize: 18 },
   }
+
+  useEffect(() => {
+    Notifications.setBadgeCountAsync(0)
+    console.log('app start')
+  });
 
   useEffect(() => {
     const usersRef = firebase.firestore().collection('users');
