@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Text, View, TouchableOpacity, StatusBar, ScrollView, useColorScheme } from 'react-native'
 import styles from './styles'
 import { firebase } from '../../firebase/config'
-import { Restart } from 'fiction-expo-restart'
+import { Restart } from '../../components/reload/reload'
 import { Avatar } from 'react-native-elements'
 import { QRCode } from 'react-native-custom-qr-codes-expo'
 import Dialog from "react-native-dialog"
