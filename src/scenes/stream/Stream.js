@@ -5,11 +5,13 @@ import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Divider, Avatar } from 'react-native-elements'
 import { staticRoom } from './static'
+import Dialog from "react-native-dialog"
 
 export default function Stream( props ) {
   const userData = props.extraData
   const [threads, setThreads] = useState([]);
   const [staticArray, setStatic] = useState([])
+  const [visible, setVisible] = useState(false)
   const scheme = useColorScheme()
 
   const addRoom = () => {
@@ -26,8 +28,13 @@ export default function Stream( props ) {
     .then(() => {
       talkRef.get().then(doc => {
         // console.log(doc.data())
+        setVisible(false)
       })
     })
+  }
+
+  const handleDialog = () => {
+    setVisible(!visible)
   }
 
   useEffect(() => {
@@ -122,12 +129,20 @@ export default function Stream( props ) {
       <View style={styles.Overlay}>
         <View style={{ flexDirection: 'row'}}>
           <View style={{ position: 'absolute', right: 0, alignSelf:'center' }}>
-            <TouchableOpacity onPress={addRoom}>
+            <TouchableOpacity onPress={() => handleDialog()}>
               <Icon name="plus-circle" size={65} color="orange"/>
             </TouchableOpacity>
           </View>
         </View>
       </View>
+      <Dialog.Container visible={visible}>
+        <Dialog.Title>Create Room?</Dialog.Title>
+          <Dialog.Description>
+            Do you want to create a chat room?
+          </Dialog.Description>
+          <Dialog.Button label="Cancel" onPress={() => handleDialog()} />
+          <Dialog.Button label="Create" onPress={() => addRoom()}  />
+      </Dialog.Container>
     </View>
   )
 }
