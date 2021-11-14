@@ -36,8 +36,8 @@ export default function App() {
   }
 
   useEffect(() => {
-    Notifications.setBadgeCountAsync(0)
     console.log('app start')
+    Notifications.setBadgeCountAsync()
   });
 
   useEffect(() => {
@@ -61,7 +61,14 @@ export default function App() {
     const { status: existingStatus } = await Notifications.getPermissionsAsync()
     let finalStatus = existingStatus;
     if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
+      const { status } = await Notifications.requestPermissionsAsync({
+        ios: {
+          allowAlert: true,
+          allowBadge: true,
+          allowSound: true,
+          allowAnnouncements: true,
+        },
+      });
       finalStatus = status;
     }
     if (finalStatus !== "granted") {
