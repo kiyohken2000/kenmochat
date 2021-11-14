@@ -13,6 +13,7 @@ import TabNavigator from './tabs'
 import {decode, encode} from 'base-64'
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
+import * as Haptics from 'expo-haptics'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -37,8 +38,16 @@ export default function App() {
 
   useEffect(() => {
     console.log('app start')
-    Notifications.setBadgeCountAsync()
+    Notifications.setBadgeCountAsync(0)
   });
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener(notification => {
+      Notifications.setBadgeCountAsync(0)
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+    });
+    return () => subscription.remove();
+  }, []);
 
   useEffect(() => {
     const usersRef = firebase.firestore().collection('users');

@@ -35,7 +35,6 @@ export default function TypingIndicator(props) {
   }, []);
 
   function isTyping(array) {
-    console.log(array.length)
     if (array.length) {
       return (
           <TypingAnimation dotColor={'#b0c4de'} dotSpeed={0.1}/>
