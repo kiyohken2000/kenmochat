@@ -20,7 +20,7 @@ import BottomSheet from 'reanimated-bottom-sheet'
 import { imgur, items } from '../key'
 import TypingIndicator from '../typing/Typing'
 import OpenAI from 'openai-api'
-import { OPENAI_API_KEY } from '../key'
+import { OPENAI_API_KEY } from '../gptkeys'
 import Spinner from 'react-native-loading-spinner-overlay'
 
 export default function Talk({ route, navigation }) {

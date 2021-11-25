@@ -63,11 +63,3 @@ export const items = [
   'https://i.imgur.com/eWc2qbG.jpg',
   'https://i.imgur.com/9iFYQ9o.jpg'
 ];
-
-export const OPENAI_API_KEY = [
-  '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',
-  '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',
-  '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',
-  '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',
-  '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'
-]

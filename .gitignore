@@ -12,3 +12,4 @@ web-report/
 config.js
 src\firebase\config.js
 google-services.json
+gptkeys.js
