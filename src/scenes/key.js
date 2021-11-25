@@ -63,3 +63,5 @@ export const items = [
   'https://i.imgur.com/eWc2qbG.jpg',
   'https://i.imgur.com/9iFYQ9o.jpg'
 ];
+
+export const OPENAI_API_KEY = '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'

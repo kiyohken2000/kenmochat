@@ -19,6 +19,9 @@ import Icon from 'react-native-vector-icons/Feather'
 import BottomSheet from 'reanimated-bottom-sheet'
 import { imgur, items } from '../key'
 import TypingIndicator from '../typing/Typing'
+import OpenAI from 'openai-api'
+import { OPENAI_API_KEY } from '../key'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 export default function Talk({ route, navigation }) {
   const talkData = route.params.talkData
@@ -41,6 +44,8 @@ export default function Talk({ route, navigation }) {
   const sheetRef = useRef(null)
   const height = Dimensions.get('window').height
   const [input, setInput] = useState('')
+  const [spinner, setSpinner] = useState(false)
+  const openai = new OpenAI(OPENAI_API_KEY)
 
   async function handleSend(messages) {
     const text = messages[0].text;
@@ -362,10 +367,66 @@ export default function Talk({ route, navigation }) {
     )
   }
 
+  const generateReply = async(item) => {
+    setSpinner(true)
+    try {
+      const gptResponse = await openai.complete({
+        engine: 'davinci',
+        prompt: item,
+        maxTokens: 60,
+        temperature: 0.9,
+        topP: 1,
+        presencePenalty: 0,
+        frequencyPenalty: 0,
+        bestOf: 1,
+        n: 1,
+        stream: false,
+        stop: ['\n', "testing"]
+      });
+      sendGeneratedMessage(gptResponse.data.choices[0].text)
+      setSpinner(false)
+    } catch (e) {
+      alert('Failed to generate.')
+      setSpinner(false)
+    }
+  }
+  
+  async function sendGeneratedMessage(message) {
+    const text = message;
+    const messageRef = firebase.firestore().collection('talk')
+    messageRef
+      .doc(talkData.id)
+      .collection('MESSAGES')
+      .add({
+        text,
+        createdAt: new Date().getTime(),
+        user: {
+          _id: myProfile.id,
+          email: myProfile.email,
+          avatar: myProfile.avatar,
+          name: myProfile.fullName,
+        }
+      });
+    await messageRef
+      .doc(talkData.id)
+      .set(
+        {
+          latestMessage: {
+            text,
+            avatar: myProfile.avatar,
+            createdAt: new Date().getTime(),
+            email: myProfile.email,
+            unread: members
+          }
+        },
+        { merge: true }
+      );
+  }
+
   function delMessage(context, message) {
     const imageUrl = message.image
     if (!message.image) {
-      const options = ['Delete Message', 'Copy Text', 'Speech', 'Cancel'];
+      const options = ['Delete Message', 'Copy Text', 'Speech', 'Generate Reply', 'Cancel'];
       const cancelButtonIndex = options.length - 1;
       context.actionSheet().showActionSheetWithOptions({
         options,
@@ -386,6 +447,11 @@ export default function Talk({ route, navigation }) {
           case 2:
             const script = message.text
             speak(script)
+            break
+          case 3:
+            console.log('Generate Reply')
+            const text2 = message.text
+            const res = generateReply(text2)
             break
         }
       });
@@ -703,6 +769,11 @@ export default function Talk({ route, navigation }) {
         <Dialog.Button label="Remove" onPress={() => removeStamp()} />
         <Dialog.Button label="Cancel" onPress={() => setSelectStamp(false)} />
       </Dialog.Container>
+      <Spinner
+        visible={spinner}
+        textStyle={{ color: "#fff" }}
+        overlayColor="rgba(0,0,0,0.5)"
+      />
     </View>
   )
 }

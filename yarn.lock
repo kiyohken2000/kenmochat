@@ -7397,6 +7397,11 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
+dotenv@^8.2.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
+  integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -13397,6 +13402,14 @@ open@^7.0.2:
   dependencies:
     is-docker "^2.0.0"
     is-wsl "^2.1.1"
+
+openai-api@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/openai-api/-/openai-api-1.2.6.tgz#4821a0072c816edfef4a936ba7688239f2048606"
+  integrity sha512-8wZ3ghZQLCaNnbcfkL2E6IRqy4mDyNFSZ7/ChIldBXshtNLLth8cTyqp6qIXT+MiSssE2vXcQn18mFigXCLZBQ==
+  dependencies:
+    axios "^0.21.1"
+    dotenv "^8.2.0"
 
 opencollective-postinstall@^2.0.2, opencollective-postinstall@^2.0.3:
   version "2.0.3"
