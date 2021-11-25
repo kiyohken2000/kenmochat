@@ -45,8 +45,6 @@ export default function Talk({ route, navigation }) {
   const height = Dimensions.get('window').height
   const [input, setInput] = useState('')
   const [spinner, setSpinner] = useState(false)
-  const openai = new OpenAI(OPENAI_API_KEY)
-
   async function handleSend(messages) {
     const text = messages[0].text;
     const messageRef = firebase.firestore().collection('talk')
@@ -369,12 +367,14 @@ export default function Talk({ route, navigation }) {
 
   const generateReply = async(item) => {
     setSpinner(true)
+    const dKey = OPENAI_API_KEY[Math.floor(Math.random() * OPENAI_API_KEY.length)]
+    const openai = new OpenAI(dKey)
     try {
       const gptResponse = await openai.complete({
         engine: 'davinci',
         prompt: item,
         maxTokens: 60,
-        temperature: 0.9,
+        temperature: 0.7,
         topP: 1,
         presencePenalty: 0,
         frequencyPenalty: 0,
