@@ -751,7 +751,7 @@ export default function Talk({ route, navigation }) {
         </View>
       </Modal>
       <Dialog.Container visible={dialog}>
-        <Dialog.Title>Send image?</Dialog.Title>
+        <Dialog.Title>画像を送信</Dialog.Title>
         <Image
           style={styles.logo}
           source={{uri: image}}
@@ -760,7 +760,7 @@ export default function Talk({ route, navigation }) {
         <Dialog.Button label="Cancel" onPress={() => setDialog(false)} />
       </Dialog.Container>
       <Dialog.Container visible={selectStamp}>
-        <Dialog.Title>Send image?</Dialog.Title>
+        <Dialog.Title>画像を送信</Dialog.Title>
         <Image
           style={styles.logo}
           source={{uri: image}}

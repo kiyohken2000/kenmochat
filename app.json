@@ -26,16 +26,16 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.votepurchase.pine",
-      "buildNumber": "1.1.4",
+      "buildNumber": "1.1.5",
       "infoPlist": {
-        "NSCameraUsageDescription": "Used to add a user to your contacts with a QR code.",
-        "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar, send images in chat, and save images."
+        "NSCameraUsageDescription": "QRコードで連絡先を追加するときにカメラを使用します",
+        "NSPhotoLibraryUsageDescription": "プロフィールアバターの変更及び画像の投稿のためフォトライブラリを使用します"
       },
       "userInterfaceStyle": "automatic"
     },
     "android": {
       "package": "net.votepurchase.pine",
-      "versionCode": 16,
+      "versionCode": 17,
       "googleServicesFile": "./google-services.json",
       "userInterfaceStyle": "automatic",
       "permissions": [

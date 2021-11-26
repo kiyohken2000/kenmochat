@@ -615,7 +615,7 @@ export default function Chat({route, navigation }) {
         enabledContentGestureInteraction={Platform.OS === 'ios'?true:false}
       />
       <Dialog.Container visible={dialog}>
-        <Dialog.Title>Send image?</Dialog.Title>
+        <Dialog.Title>画像を送信</Dialog.Title>
         <Image
           style={styles.logo}
           source={{uri: image}}

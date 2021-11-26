@@ -92,7 +92,7 @@ export default function Profile(props) {
       <Dialog.Container visible={visible}>
         <Dialog.Title>Account delete</Dialog.Title>
         <Dialog.Description>
-          Do you want to delete this account? You cannot undo this action.
+         アカウントを削除しますか？取り消せません
         </Dialog.Description>
         <Dialog.Button label="Cancel" onPress={handleCancel} />
         <Dialog.Button label="Delete" onPress={accountDelete}  />

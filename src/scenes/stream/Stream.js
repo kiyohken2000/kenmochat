@@ -138,10 +138,10 @@ export default function Stream( props ) {
       <Dialog.Container visible={visible}>
         <Dialog.Title>Create Room?</Dialog.Title>
           <Dialog.Description>
-            Do you want to create a chat room?
+            チャットルームを作成
           </Dialog.Description>
-          <Dialog.Button label="Cancel" onPress={() => handleDialog()} />
-          <Dialog.Button label="Create" onPress={() => addRoom()}  />
+          <Dialog.Button label="キャンセル" onPress={() => handleDialog()} />
+          <Dialog.Button label="作成" onPress={() => addRoom()}  />
       </Dialog.Container>
     </View>
   )
