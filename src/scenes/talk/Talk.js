@@ -393,34 +393,38 @@ export default function Talk({ route, navigation }) {
   
   async function sendGeneratedMessage(message) {
     const text = message;
-    const messageRef = firebase.firestore().collection('talk')
-    messageRef
-      .doc(talkData.id)
-      .collection('MESSAGES')
-      .add({
-        text,
-        createdAt: new Date().getTime(),
-        user: {
-          _id: myProfile.id,
-          email: myProfile.email,
-          avatar: myProfile.avatar,
-          name: myProfile.fullName,
-        }
-      });
-    await messageRef
-      .doc(talkData.id)
-      .set(
-        {
-          latestMessage: {
-            text,
-            avatar: myProfile.avatar,
-            createdAt: new Date().getTime(),
+    if (text.length > 5) {
+      const messageRef = firebase.firestore().collection('talk')
+      messageRef
+        .doc(talkData.id)
+        .collection('MESSAGES')
+        .add({
+          text,
+          createdAt: new Date().getTime(),
+          user: {
+            _id: myProfile.id,
             email: myProfile.email,
-            unread: members
+            avatar: myProfile.avatar,
+            name: myProfile.fullName,
           }
-        },
-        { merge: true }
-      );
+        });
+      await messageRef
+        .doc(talkData.id)
+        .set(
+          {
+            latestMessage: {
+              text,
+              avatar: myProfile.avatar,
+              createdAt: new Date().getTime(),
+              email: myProfile.email,
+              unread: members
+            }
+          },
+          { merge: true }
+        );
+    } else {
+      alert('Failed to generate.')
+    }
   }
 
   function delMessage(context, message) {
