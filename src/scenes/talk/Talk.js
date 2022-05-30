@@ -124,7 +124,7 @@ export default function Talk({ route, navigation }) {
       .doc(myProfile.email)
       .onSnapshot(function(document) {
         const data = document.data()
-        const d = data.stamp ? data.stamp : ['https://pinepro.ml/static/avatar-780242398e277f267092de9beaa077c9.png']
+        const d = data.stamp ? data.stamp : ['https://kenmochat.web.app/static/avatar-780242398e277f267092de9beaa077c9.png']
         const s = d.reverse()
         const stamps = s.concat(items)
         setStamps(stamps)

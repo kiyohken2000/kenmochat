@@ -117,7 +117,7 @@ export default function Registration({navigation}) {
         <View style={styles.footerView}>
           <Text style={scheme === 'dark' ? styles.darkfooterText : styles.footerText}>Already got an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
         </View>
-        <Text style={styles.link} onPress={ ()=>{ Linking.openURL('https://pinepro.ml')}}>Require agree EULA</Text>
+        <Text style={styles.link} onPress={ ()=>{ Linking.openURL('https://kenmochat.web.app')}}>Require agree EULA</Text>
         <Text style={scheme === 'dark' ? styles.darkcontact : styles.contact}>pinepro.staff@gmail.com</Text>
       </KeyboardAwareScrollView>
       <Spinner
