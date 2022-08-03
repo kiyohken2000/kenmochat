@@ -4,7 +4,7 @@ import styles from './styles'
 import { firebase } from '../../firebase/config'
 import { Restart } from '../../components/reload/reload'
 import { Avatar } from 'react-native-elements'
-import { QRCode } from 'react-native-custom-qr-codes-expo'
+import QRCode from "react-native-qrcode-svg";
 import Dialog from "react-native-dialog"
 import Spinner from 'react-native-loading-spinner-overlay'
 
@@ -82,8 +82,9 @@ export default function Profile(props) {
           </View>
           <View style={styles.qr}>
             <QRCode
-              content={userData.email}
-              color={scheme === 'dark' ? 'white' : 'black'}
+              value={userData.email}
+              color={scheme === 'dark' ? 'black' : 'white'}
+              backgroundColor={scheme === 'dark' ? 'white': 'black'}
               size={200}
             />
           </View>
