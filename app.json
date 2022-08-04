@@ -6,9 +6,8 @@
     "platforms": [
       "ios",
       "android",
-      "web"
     ],
-    "version": "1.1.6",
+    "version": "1.1.7",
     "orientation": "portrait",
     "icon": "./assets/images/logo-sm.png",
     "splash": {
@@ -26,7 +25,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.votepurchase.pine",
-      "buildNumber": "1.1.8",
+      "buildNumber": "1.1.9",
       "infoPlist": {
         "NSCameraUsageDescription": "QRコードで連絡先を追加するときにカメラを使用します",
         "NSPhotoLibraryUsageDescription": "プロフィールアバターの変更及び画像の投稿のためフォトライブラリを使用します"
@@ -35,7 +34,7 @@
     },
     "android": {
       "package": "net.votepurchase.pine",
-      "versionCode": 20,
+      "versionCode": 21,
       "googleServicesFile": "./google-services.json",
       "userInterfaceStyle": "automatic",
       "permissions": [

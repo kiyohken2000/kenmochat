@@ -52,7 +52,7 @@ export default function Login({navigation}) {
         keyboardShouldPersistTaps="always">
         <Image
           style={styles.logo}
-          source={require('../../../assets/icon.png')}
+          source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/kenmochat.appspot.com/o/icon.png?alt=media&token=7aeb43ad-a4a9-4b99-b659-eb1bc3b8c0fb'}}
         />
         <TextInput
           style={scheme === 'dark' ? styles.darkinput : styles.input}

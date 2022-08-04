@@ -83,7 +83,9 @@ export default function App() {
     if (finalStatus !== "granted") {
       return;
     }
-    const token = await Notifications.getExpoPushTokenAsync();
+    const token = await Notifications.getExpoPushTokenAsync({
+      experienceId: '@votepurchase/pine'
+    });
     await firebase.firestore().collection("tokens").doc(user.email).set({ token: token.data, email: user.email })
   })();
 
