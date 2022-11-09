@@ -12,7 +12,7 @@ import * as Speech from 'expo-speech'
 import * as FileSystem from 'expo-file-system'
 import * as MediaLibrary from 'expo-media-library'
 import * as Haptics from 'expo-haptics'
-import Clipboard from 'expo-clipboard'
+import Clipboard from '@react-native-clipboard/clipboard';
 import Constants from 'expo-constants'
 import Dialog from 'react-native-dialog'
 import Icon from 'react-native-vector-icons/Feather'

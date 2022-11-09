@@ -8,7 +8,7 @@ import { IconButton } from 'react-native-paper'
 import { Divider, Avatar } from 'react-native-elements'
 import * as ImagePicker from 'expo-image-picker'
 import * as ImageManipulator from 'expo-image-manipulator'
-import Clipboard from 'expo-clipboard'
+import Clipboard from '@react-native-clipboard/clipboard';
 import Constants from 'expo-constants'
 import * as Speech from 'expo-speech'
 import * as FileSystem from 'expo-file-system'

@@ -2,12 +2,13 @@
   "expo": {
     "name": "PINE",
     "slug": "pine",
+    "jsEngine": "jsc",
     "privacy": "public",
     "platforms": [
       "ios",
-      "android",
+      "android"
     ],
-    "version": "1.1.7",
+    "version": "1.1.8",
     "orientation": "portrait",
     "icon": "./assets/images/logo-sm.png",
     "splash": {
@@ -25,7 +26,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "net.votepurchase.pine",
-      "buildNumber": "1.1.9",
+      "buildNumber": "1.1.10",
       "infoPlist": {
         "NSCameraUsageDescription": "QRコードで連絡先を追加するときにカメラを使用します",
         "NSPhotoLibraryUsageDescription": "プロフィールアバターの変更及び画像の投稿のためフォトライブラリを使用します"
@@ -34,7 +35,7 @@
     },
     "android": {
       "package": "net.votepurchase.pine",
-      "versionCode": 21,
+      "versionCode": 22,
       "googleServicesFile": "./google-services.json",
       "userInterfaceStyle": "automatic",
       "permissions": [
@@ -53,6 +54,11 @@
         "tsx"
       ]
     },
-    "description": ""
+    "description": "",
+    "extra": {
+      "eas": {
+        "projectId": "5dab2e09-78bc-4a86-8b37-2b69ce873f38"
+      }
+    }
   }
 }
