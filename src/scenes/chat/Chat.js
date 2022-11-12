@@ -602,6 +602,7 @@ export default function Chat({route, navigation }) {
         renderFooter={renderFooter}
         textInputStyle={scheme === 'dark' ? styles.darktextInputStyle: styles.textInputStyle}
         placeholder='Type your message here...'
+        wrapInSafeArea={false}
       />
       {talking?
       <View style={styles.Overlay}>
