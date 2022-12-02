@@ -30,11 +30,11 @@ export default function Detail({ route, navigation }) {
         }
       }
       const result = await ImagePicker.launchImageLibraryAsync();
-        if (!result.cancelled) {
+        if (!result.canceled) {
           const actions = [];
           actions.push({ resize: { width: 300 } });
           const manipulatorResult = await ImageManipulator.manipulateAsync(
-            result.uri,
+            result.assets[0].uri,
             actions,
             {
               compress: 0.4,

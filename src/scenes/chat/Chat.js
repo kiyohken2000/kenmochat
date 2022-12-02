@@ -188,11 +188,11 @@ export default function Chat({route, navigation }) {
         }
       }
       const result = await ImagePicker.launchImageLibraryAsync();
-        if (!result.cancelled) {
+        if (!result.canceled) {
           const actions = [];
           actions.push({ resize: { width: 350 } });
           const manipulatorResult = await ImageManipulator.manipulateAsync(
-            result.uri,
+            result.assets[0].uri,
             actions,
             {
               compress: 0.1,
@@ -233,10 +233,10 @@ export default function Chat({route, navigation }) {
         }
       }
       const result = await ImagePicker.launchImageLibraryAsync({base64: true});
-        if (!result.cancelled) {
+        if (!result.canceled) {
           const stampRef = firebase.firestore().collection('stamp').doc(myProfile.email)
           const formdata = new FormData()
-          formdata.append("image", result.base64)
+          formdata.append("image", result.assets[0].base64)
           setUpload(true)
           fetch("https://api.imgur.com/3/image/", {
             method: "post",
